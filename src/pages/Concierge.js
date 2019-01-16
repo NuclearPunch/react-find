@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { Spaces1, Spaces2, Spaces3, Measure, Budget, Styles, Priority, Splash, Experts } from 'pages'; 
 
-import { StyledButton } from 'components';
 import styled, { css } from 'styled-components';
 
 const Box = styled.div`
