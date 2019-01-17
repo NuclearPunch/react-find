@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyledHeader, ConciergeInput, Button } from 'components';
 
 import styled from 'styled-components';
+import Util from "../../lib/Util";
 
 const ContentBox = styled.div`
   width: 322px;
@@ -66,20 +67,10 @@ class Budget extends Component {
         });
       }
 
-    nextPath(path) {
-    if( this.state.active === 'off' ) return false;
-    const checkUrl = this.props.location.pathname.split("/");
-    let url = '';
-    checkUrl.splice(0, 1);
-    if( checkUrl.length > 1 ) checkUrl.splice(checkUrl.length-1, 1);
-    
-    for (const s of checkUrl) {
-        url += `/${s}`;
-    }
-    url += path;
-
-
-    this.props.history.push(url);
+    movePath(path, post=false) {
+        if(post) this.props.history.push(Util.movePath(this.props.location.pathname, path));
+        if (this.state.active === 'off') return false;
+        this.props.history.push(Util.movePath(this.props.location.pathname, path));
     }
 
 
@@ -95,15 +86,14 @@ class Budget extends Component {
                     <InlineBox/>
                     <div>
                         <ConciergeInput  name="py" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.py} />
-                    </div>           
+                    </div>
                 </ContentBox>
                 <BttonBox>
-                    <Button onClick={() => this.nextPath(`/measure`) }>이전으로</Button>
-            
-                    <Button active={this.state.active}  onClick={() => this.nextPath(`/budget`) }>다음으로</Button>
+                    <Button onClick={() => this.movePath(`/measure`, true) }>이전으로</Button>
+                    <Button active={this.state.active}  onClick={() => this.movePath(`/styles`) }>다음으로</Button>
                 </BttonBox>
             </div>
-           
+
         );
       }
     }

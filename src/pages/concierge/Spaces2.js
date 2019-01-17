@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyledHeader, SpaceTextCard, Button } from 'components';
 
 import styled from 'styled-components';
+import Util from "../../lib/Util";
 
 const ContentBox = styled.div`
   width: 1072px;
@@ -52,22 +53,12 @@ class Spaces2 extends Component {
         });
       }
 
-      nextPath(path) {
-        if( this.state.active === 'off' ) return false;
-        const checkUrl = this.props.location.pathname.split("/");
-        let url = '';
-        checkUrl.splice(0, 1);
-        if( checkUrl.length > 1 ) checkUrl.splice(checkUrl.length-1, 1);
-     
-        for (const s of checkUrl) {
-            url += `/${s}`;
-        }
-        url += path;
-    
-    
-        this.props.history.push(url);
-      }
 
+    movePath(path, post=false) {
+        if(post) this.props.history.push(Util.movePath(this.props.location.pathname, path));
+        if (this.state.active === 'off') return false;
+        this.props.history.push(Util.movePath(this.props.location.pathname, path));
+    }
 
     render() {
         
@@ -85,9 +76,9 @@ class Spaces2 extends Component {
                     <SpaceTextCard id={this.state.card[7].id} title={this.state.card[7].title} subTitle={this.state.card[7].subTitle} selected={this.state.card[7].selected} onClick={(e) => this.handleActiveChange(this.state.card[7].id, e)} />
                 </ContentBox>
                 <BttonBox>
-                    <Button onClick={() => this.nextPath(`/spaces1`) }>이전으로</Button>
+                    <Button onClick={() => this.movePath(`/spaces1`, true) }>이전으로</Button>
             
-                    <Button active={this.state.active}  onClick={() => this.nextPath(`/spaces3`) }>다음으로</Button>
+                    <Button active={this.state.active}  onClick={() => this.movePath(`/spaces3`) }>다음으로</Button>
                 </BttonBox>
             </div>
            

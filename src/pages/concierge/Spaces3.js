@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyledHeader, SpaceTextCard, Button } from 'components';
 
 import styled from 'styled-components';
+import Util from "../../lib/Util";
 
 const ContentBox = styled.div`
   width: 1072px;
@@ -28,14 +29,14 @@ class Spaces3 extends Component {
                 {id: 2, title: "사무공간", subTitle: "Office", selected:false},
                 {id: 3, title: "부분시공", subTitle: "Remdeling", selected:false},
                ]
-      }
+     }
 
-      handleActiveChange = (id, e) => {
+    handleActiveChange = (id, e) => {
         e.preventDefault();
         const card  = this.state.card;
         this.setState({
             active : 'on',
-            card: card.map( 
+            card: card.map(
                 c => {
                   if(c.id === id){
                     c.selected = true;
@@ -44,26 +45,15 @@ class Spaces3 extends Component {
                   }
                   return c;
               })
-            
+
         });
-      }
+    }
 
-      nextPath(path) {
-        if( this.state.active === 'off' ) return false;
-        const checkUrl = this.props.location.pathname.split("/");
-        let url = '';
-        checkUrl.splice(0, 1);
-        if( checkUrl.length > 1 ) checkUrl.splice(checkUrl.length-1, 1);
-     
-        for (const s of checkUrl) {
-            url += `/${s}`;
-        }
-        url += path;
-
-    
-        this.props.history.push(url);
-      }
-
+    movePath(path, post=false) {
+        if(post) this.props.history.push(Util.movePath(this.props.location.pathname, path));
+        if (this.state.active === 'off') return false;
+        this.props.history.push(Util.movePath(this.props.location.pathname, path));
+    }
 
     render() {
        
@@ -78,9 +68,9 @@ class Spaces3 extends Component {
                 
                 </ContentBox>
                 <BttonBox>
-                    <Button onClick={() => this.nextPath(`/spaces2`) }>이전으로</Button>
+                    <Button onClick={() => this.movePath(`/spaces2`, true) }>이전으로</Button>
             
-                    <Button active={this.state.active}  onClick={() => this.nextPath(`/measure`) }>다음으로</Button>
+                    <Button active={this.state.active}  onClick={() => this.movePath(`/measure`) }>다음으로</Button>
                 </BttonBox>
             </div>
            
