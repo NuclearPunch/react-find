@@ -21,14 +21,10 @@ const BttonBox = styled.div`
 `;
 
 class Spaces1 extends Component {
+   
     state = {
         active : 'off',
-        card : [
-                {id: 0, title: "상업공간", imgSrc: "/img/concierge/Retail.png",  subTitle: "Retail", selected:false},
-                {id: 1, title: "주거공간", imgSrc: "/img/concierge/Residence.png", subTitle: "Residence", selected:false},
-                {id: 2, title: "사무공간", imgSrc: "/img/concierge/Office.png",  subTitle: "Office", selected:false},
-                {id: 3, title: "부분시공", imgSrc: "/img/concierge/Remdeling.png", subTitle: "Remdeling", selected:false},
-               ]
+        card : Util.mainSpecialty
       }
 
       handleActiveChange = (id, e) => {
@@ -51,7 +47,7 @@ class Spaces1 extends Component {
 
 
     render() {
-
+    
         return (
             <div>
                 <StyledHeader title="공간유형 선택" msg="컨설팅할 공간을 선택해 주세요." />
