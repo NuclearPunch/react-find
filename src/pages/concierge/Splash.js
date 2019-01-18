@@ -57,11 +57,6 @@ class Splash extends Component {
         });
       }
 
-    movePath(path, post=false) {
-        if(post) this.props.history.push(Util.movePath(this.props.location.pathname, path));
-        if (this.state.active === 'off') return false;
-        this.props.history.push(Util.movePath(this.props.location.pathname, path));
-    }
 
 
     render() {
@@ -76,7 +71,14 @@ class Splash extends Component {
                     <ConciergeRadio/>
                 </ContentBox>
                 <BttonBox>
-                    <Button active={this.state.active}  onClick={() => this.movePath(`/experts`) }>컨시어지 결과보기</Button>
+                    <Button active={this.state.active}
+                      style={{position:'absolute'}}
+                      onClick={_ => {
+                        let {history} = this.props
+                        history.push('/concierge/experts')
+                      }     
+                    }
+                    >다음으로 </Button>
                 </BttonBox>
             </div>
 

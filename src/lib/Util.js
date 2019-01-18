@@ -1,19 +1,4 @@
 
-export const movePath = function(nowPath, targetPath){
-    const checkUrl = nowPath.split("/");
-    let url = '';
-    checkUrl.splice(0, 1);
-    if( checkUrl.length > 1 ) checkUrl.splice(checkUrl.length-1, 1);
-
-    for (const s of checkUrl) {
-        url += `/${s}`;
-    }
-    url += targetPath;
-
-
-    return url;
-}
-
 const style = ['', '모던', '북유럽', '클래식', '프로방스&로맨틱', '빈티지', '한국&아시아', '미니멀리즘', '인더스트리얼', '기타', '앤틱', '내추럴']
 
 const spaces1 = [
@@ -109,7 +94,6 @@ const spaces3 = [
 ]
 
 export default{
-    movePath : movePath,
     spaces1  : spaces1,
     spaces2  : spaces2,
     spaces3  : spaces3,

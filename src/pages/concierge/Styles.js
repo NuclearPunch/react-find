@@ -49,11 +49,7 @@ class Styles extends Component {
         });
     }
 
-    movePath(path, post=false) {
-        if(post) this.props.history.push(Util.movePath(this.props.location.pathname, path));
-        if (this.state.active === 'off') return false;
-        this.props.history.push(Util.movePath(this.props.location.pathname, path));
-    }
+
 
     render() {
 
@@ -67,8 +63,21 @@ class Styles extends Component {
                     <ConciergeCard id={this.state.card[3].id} title={this.state.card[3].title} subTitle={this.state.card[3].subTitle} img={this.state.card[3].imgSrc} selected={this.state.card[3].selected} onClick={(e) => this.handleActiveChange(this.state.card[3].id, e)} type={"L"}/>
                 </ContentBox>
                 <BttonBox>
-                    <Button onClick={() => this.movePath(`/budget`, true) }>이전으로</Button>
-                    <Button active={this.state.active}  onClick={() => this.movePath(`/priority`) }>다음으로</Button>
+                <Button     onClick={_ => {
+                        let {history} = this.props
+                        history.push('/concierge/budget')
+                      }     
+                    }>이전으로</Button>
+                   
+                    <Button active={this.state.active}
+                      style={{position:'absolute'}}
+                      onClick={_ => {
+                        let {history} = this.props
+                        history.push('/concierge/priority')
+                      }     
+                    }
+                    >다음으로 </Button>
+            
                 </BttonBox>
             </div>
 

@@ -1,6 +1,5 @@
 import React, { Component ,createRef} from 'react';
 import { StyledHeader, ConciergeCard, Button } from 'components';
-import { NavLink,Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Util from  './../../lib/Util';
 
@@ -19,14 +18,6 @@ const BttonBox = styled.div`
   margin: 0 auto;
   margin-top: 130px;
 `;
-
-const Test = styled(Link)`
-  width: 456px;
-  height: 60px;
-  margin: 0 auto;
-  margin-top: 130px;
-`;
-
 
 
 class Spaces1 extends Component {

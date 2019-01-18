@@ -71,13 +71,6 @@ class Measure extends Component {
         });
       }
 
-    movePath(path, post=false) {
-        if(post) this.props.history.push(Util.movePath(this.props.location.pathname, path));
-        if (this.state.active === 'off') return false;
-        this.props.history.push(Util.movePath(this.props.location.pathname, path));
-    }
-
-
     render() {
        
         return (
@@ -96,9 +89,21 @@ class Measure extends Component {
                     </div>           
                 </ContentBox>
                 <BttonBox>
-                    <Button onClick={() => this.movePath(`/spaces3`, true) }>이전으로</Button>
-            
-                    <Button active={this.state.active}  onClick={() => this.movePath(`/budget`) }>다음으로</Button>
+                <Button     onClick={_ => {
+                        let {history} = this.props
+                        history.push('/concierge/spaces3')
+                      }     
+                    }>이전으로</Button>
+                   
+                    <Button active={this.state.active}
+                      style={{position:'absolute'}}
+                      onClick={_ => {
+                        let {history} = this.props
+                        history.push('/concierge/budget')
+                      }     
+                    }
+                    >다음으로 </Button>
+                  
                 </BttonBox>
             </div>
            
