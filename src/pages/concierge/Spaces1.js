@@ -24,7 +24,7 @@ class Spaces1 extends Component {
    
     state = {
         active : 'off',
-        card : Util.mainSpecialty
+        card : Util.spaces1
       }
 
       handleActiveChange = (id, e) => {
