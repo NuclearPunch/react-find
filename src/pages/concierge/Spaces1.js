@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component ,createRef} from 'react';
 import { StyledHeader, ConciergeCard, Button } from 'components';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Util from  './../../lib/Util';
 
@@ -30,27 +30,31 @@ const Test = styled(Link)`
 
 
 class Spaces1 extends Component {
-   
-    state = {
+
+  constructor(props){
+    super()
+    this.state = {
         active : 'off',
         card : Util.spaces1
       }
 
+    this.buttonRef = createRef()
+  }
       handleActiveChange = (id, e) => {
         e.preventDefault();
-        const card  = this.state.card;
+        const card = this.state.card;
         this.setState({
-            active : 'on',
-            card: card.map( 
-                c => {
-                  if(c.id === id){
-                    c.selected = true;
-                  }else{
-                    c.selected = false;
-                  }
-                  return c;
-              })
-            
+          active: 'on',
+          card: card.map(
+            c => {
+              if (c.id === id) {
+                c.selected = true;
+              } else {
+                c.selected = false;
+              }
+              return c;
+            })
+
         });
       }
 
@@ -66,9 +70,15 @@ class Spaces1 extends Component {
                     <ConciergeCard id={this.state.card[2].id} title={this.state.card[2].title} subTitle={this.state.card[2].subTitle} img={this.state.card[2].imgSrc} selected={this.state.card[2].selected} onClick={(e) => this.handleActiveChange(this.state.card[2].id, e)} type={"M"}/>
                 </ContentBox>
                 <BttonBox>
-                    <Button >이전으로</Button>
-                   
-                    <Button active={this.state.active} ><Test2  to="/concierge/spaces2">다음으로</Test2></Button>
+                    <Button >이전으로</Button>                 
+                    <Button active={this.state.active}
+                      style={{position:'absolute'}}
+                      onClick={_ => {
+                        let {history} = this.props
+                        history.push('/concierge/spaces2')
+                      }     
+                    }
+                    >다음으로 </Button>
                 </BttonBox>
             </div>
 
