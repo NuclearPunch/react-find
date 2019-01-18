@@ -55,9 +55,9 @@ class Measure extends Component {
 
     handleActiveChange = (id, e) => {
         e.preventDefault();
-        this.state.active = 'on';
         const focus  = this.state.focus;
         this.setState({
+            active : 'on',
             focus: focus.map( 
                 a => {
                   if(a.id === id){

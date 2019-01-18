@@ -34,13 +34,13 @@ const InlineBox = styled.div`
 class Budget extends Component {
   
     state = {
-    active : 'off',
-    focus : [
-        {id: 0, active: "off"},
-        {id: 1, active: "off"},
-    ],
-    m2: '',
-    py: '',
+        active : 'off',
+        focus : [
+            {id: 0, active: "off"},
+            {id: 1, active: "off"},
+        ],
+        m2: '',
+        py: '',
     }
 
     handleChange = (e) => {
@@ -51,9 +51,9 @@ class Budget extends Component {
 
     handleActiveChange = (id, e) => {
         e.preventDefault();
-        this.state.active = 'on';
         const focus  = this.state.focus;
         this.setState({
+            active : 'on',
             focus: focus.map( 
                 a => {
                   if(a.id === id){
@@ -81,11 +81,11 @@ class Budget extends Component {
                 <StyledHeader title="면적/예산 설정" msg="예산은 어떻게 되나요?" />
                 <ContentBox>
                     <div>
-                        <ConciergeInput  name="m2" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.m2} />
+                        <ConciergeInput  name="a" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.m2} />
                     </div>
                     <InlineBox/>
                     <div>
-                        <ConciergeInput  name="py" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.py} />
+                        <ConciergeInput  name="b" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.py} />
                     </div>
                 </ContentBox>
                 <BttonBox>

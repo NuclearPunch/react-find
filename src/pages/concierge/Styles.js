@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyledHeader, SpaceCard, Button } from 'components';
+import { StyledHeader, ConciergeCard, Button } from 'components';
 
 import styled from 'styled-components';
 import Util from  './../../lib/Util';
@@ -61,10 +61,10 @@ class Styles extends Component {
             <div>
                 <StyledHeader title="공간유형 선택" msg="컨설팅할 공간을 선택해 주세요." />
                 <ContentBox>
-                    <SpaceCard id={this.state.card[0].id} title={this.state.card[0].title} subTitle={this.state.card[0].subTitle} img={this.state.card[0].imgSrc} selected={this.state.card[0].selected} onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} type={"L"} />
-                    <SpaceCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} img={this.state.card[1].imgSrc} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} type={"L"}/>
-                    <SpaceCard id={this.state.card[2].id} title={this.state.card[2].title} subTitle={this.state.card[2].subTitle} img={this.state.card[2].imgSrc} selected={this.state.card[2].selected} onClick={(e) => this.handleActiveChange(this.state.card[2].id, e)} type={"L"}/>
-                    <SpaceCard id={this.state.card[3].id} title={this.state.card[3].title} subTitle={this.state.card[3].subTitle} img={this.state.card[3].imgSrc} selected={this.state.card[3].selected} onClick={(e) => this.handleActiveChange(this.state.card[3].id, e)} type={"L"}/>
+                    <ConciergeCard id={this.state.card[0].id} title={this.state.card[0].title} subTitle={this.state.card[0].subTitle} img={this.state.card[0].imgSrc} selected={this.state.card[0].selected} onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} type={"L"} />
+                    <ConciergeCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} img={this.state.card[1].imgSrc} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} type={"L"}/>
+                    <ConciergeCard id={this.state.card[2].id} title={this.state.card[2].title} subTitle={this.state.card[2].subTitle} img={this.state.card[2].imgSrc} selected={this.state.card[2].selected} onClick={(e) => this.handleActiveChange(this.state.card[2].id, e)} type={"L"}/>
+                    <ConciergeCard id={this.state.card[3].id} title={this.state.card[3].title} subTitle={this.state.card[3].subTitle} img={this.state.card[3].imgSrc} selected={this.state.card[3].selected} onClick={(e) => this.handleActiveChange(this.state.card[3].id, e)} type={"L"}/>
                 </ContentBox>
                 <BttonBox>
                     <Button onClick={() => this.movePath(`/budget`, true) }>이전으로</Button>

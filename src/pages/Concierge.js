@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Spaces1, Spaces2, Spaces3, Measure, Budget, Styles, Priority, Splash, Experts } from 'pages'; 
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const Box = styled.div`
-  position: fixed;
+  position: relative;
   width: 1146px;
   height: 100%;
   background: #f9f9f9;

@@ -13,6 +13,12 @@ const Title = styled.div`
   text-align: center;
   color: rgba(27, 27, 27, 0.7);
   padding-top: 80px;
+  ${p => p.type === 'B' && `
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+    color: rgba(27, 27, 27, 0.7);
+  `}
 `;
 const Msg = styled.div`
   font-family: AppleSDGothicNeo;
@@ -25,14 +31,20 @@ const Msg = styled.div`
   text-align: center;
   color: rgba(27, 27, 27, 0.7);
   padding-top: 10px;
+  ${p => p.type === 'B' && `
+    font-size: 25px;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+    color: rgba(27, 27, 27, 0.7);
+  `}
 `;
 
 
 const Header = (props) => {
   return (
     <div>
-      <Title>{props.title}</Title>
-      <Msg>{props.msg}</Msg>
+      <Title type={props.type}>{props.title}</Title>
+      <Msg  type={props.type}>{props.msg}</Msg>
     </div>
   
   );

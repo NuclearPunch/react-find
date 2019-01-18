@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyledHeader, SpaceTextCard, Button } from 'components';
+import { StyledHeader, ConciergeTextCard, Button } from 'components';
 
 import styled from 'styled-components';
 import Util from "../../lib/Util";
@@ -66,14 +66,14 @@ class Spaces2 extends Component {
             <div>
                 <StyledHeader title="공간유형 선택" msg="상업공간" />
                 <ContentBox>
-                    <SpaceTextCard id={this.state.card[0].id} title={this.state.card[0].title} subTitle={this.state.card[0].subTitle} selected={this.state.card[0].selected} onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} />
-                    <SpaceTextCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} />
-                    <SpaceTextCard id={this.state.card[2].id} title={this.state.card[2].title} subTitle={this.state.card[2].subTitle} selected={this.state.card[2].selected} onClick={(e) => this.handleActiveChange(this.state.card[2].id, e)} />
-                    <SpaceTextCard id={this.state.card[3].id} title={this.state.card[3].title} subTitle={this.state.card[3].subTitle} selected={this.state.card[3].selected} onClick={(e) => this.handleActiveChange(this.state.card[3].id, e)} />
-                    <SpaceTextCard id={this.state.card[4].id} title={this.state.card[4].title} subTitle={this.state.card[4].subTitle} selected={this.state.card[4].selected} onClick={(e) => this.handleActiveChange(this.state.card[4].id, e)} />
-                    <SpaceTextCard id={this.state.card[5].id} title={this.state.card[5].title} subTitle={this.state.card[5].subTitle} selected={this.state.card[5].selected} onClick={(e) => this.handleActiveChange(this.state.card[5].id, e)} />
-                    <SpaceTextCard id={this.state.card[6].id} title={this.state.card[6].title} subTitle={this.state.card[6].subTitle} selected={this.state.card[6].selected} onClick={(e) => this.handleActiveChange(this.state.card[6].id, e)} />
-                    <SpaceTextCard id={this.state.card[7].id} title={this.state.card[7].title} subTitle={this.state.card[7].subTitle} selected={this.state.card[7].selected} onClick={(e) => this.handleActiveChange(this.state.card[7].id, e)} />
+                    <ConciergeTextCard id={this.state.card[0].id} title={this.state.card[0].title} subTitle={this.state.card[0].subTitle} selected={this.state.card[0].selected} onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} />
+                    <ConciergeTextCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} />
+                    <ConciergeTextCard id={this.state.card[2].id} title={this.state.card[2].title} subTitle={this.state.card[2].subTitle} selected={this.state.card[2].selected} onClick={(e) => this.handleActiveChange(this.state.card[2].id, e)} />
+                    <ConciergeTextCard id={this.state.card[3].id} title={this.state.card[3].title} subTitle={this.state.card[3].subTitle} selected={this.state.card[3].selected} onClick={(e) => this.handleActiveChange(this.state.card[3].id, e)} />
+                    <ConciergeTextCard id={this.state.card[4].id} title={this.state.card[4].title} subTitle={this.state.card[4].subTitle} selected={this.state.card[4].selected} onClick={(e) => this.handleActiveChange(this.state.card[4].id, e)} />
+                    <ConciergeTextCard id={this.state.card[5].id} title={this.state.card[5].title} subTitle={this.state.card[5].subTitle} selected={this.state.card[5].selected} onClick={(e) => this.handleActiveChange(this.state.card[5].id, e)} />
+                    <ConciergeTextCard id={this.state.card[6].id} title={this.state.card[6].title} subTitle={this.state.card[6].subTitle} selected={this.state.card[6].selected} onClick={(e) => this.handleActiveChange(this.state.card[6].id, e)} />
+                    <ConciergeTextCard id={this.state.card[7].id} title={this.state.card[7].title} subTitle={this.state.card[7].subTitle} selected={this.state.card[7].selected} onClick={(e) => this.handleActiveChange(this.state.card[7].id, e)} />
                 </ContentBox>
                 <BttonBox>
                     <Button onClick={() => this.movePath(`/spaces1`, true) }>이전으로</Button>
