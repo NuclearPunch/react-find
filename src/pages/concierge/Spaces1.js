@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { StyledHeader, ConciergeCard, Button } from 'components';
+import { BigTitle, MidTitle, ConciergeCard, Button } from 'components';
 import styled from 'styled-components';
 import Util from  './../../lib/Util';
 
@@ -54,7 +54,8 @@ class Spaces1 extends Component {
     
         return (
             <div>
-                <StyledHeader title="공간유형 선택" msg="컨설팅할 공간을 선택해 주세요." />
+                <BigTitle text="공간유형 선택" />
+                <MidTitle text="컨설팅할 공간을 선택해 주세요." />
                 <ContentBox>
                     <ConciergeCard 
                       id={this.state.card[0].id} 

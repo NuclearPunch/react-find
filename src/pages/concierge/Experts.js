@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyledHeader, ExpertCard, Button } from 'components';
+import { BigTitle, MidTitle, ExpertCard, Button } from 'components';
 
 import styled from 'styled-components';
 import Util from  './../../lib/Util';
@@ -59,7 +59,8 @@ class Experts extends Component {
     render() {
         return (
             <div>
-                <StyledHeader title="공간유형 선택" msg="컨설팅할 공간을 선택해 주세요." />
+                <BigTitle text="공간유형 선택" />
+                <MidTitle text="컨설팅할 공간을 선택해 주세요." />
                 <ContentBox>
                     <ExpertCard id={this.state.card[0].id} title={this.state.card[0].title} subTitle={this.state.card[0].subTitle} img={this.state.card[0].imgSrc} selected={this.state.card[0].selected} onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} type={"M"}/>
                     <ExpertCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} img={this.state.card[1].imgSrc} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} type={"M"}/>

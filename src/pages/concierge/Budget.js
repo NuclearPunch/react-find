@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyledHeader, ConciergeInput, Button } from 'components';
+import { BigTitle, MidTitle, ConciergeInput, Button } from 'components';
 
 import styled from 'styled-components';
 import Util from "../../lib/Util";
@@ -74,7 +74,8 @@ class Budget extends Component {
        
         return (
             <div>
-                <StyledHeader title="면적/예산 설정" msg="예산은 어떻게 되나요?" />
+                <BigTitle text="면적/예산 설정" />
+                <MidTitle text="예산은 어떻게 되나요?" />
                 <ContentBox>
                     <div>
                         <ConciergeInput  name="a" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.m2} />

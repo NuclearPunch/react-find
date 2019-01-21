@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyledHeader, ConciergeTextCard, Button } from 'components';
+import { BigTitle, MidTitle, ConciergeTextCard, Button } from 'components';
 
 import styled from 'styled-components';
 import Util from "../../lib/Util";
@@ -23,7 +23,8 @@ const BttonBox = styled.div`
 class Spaces2 extends Component {
     state = {
         active : 'off',
-        cards : []
+        cards : [],
+        selectedId : ''
       }
 
       componentDidMount(){
@@ -35,10 +36,10 @@ class Spaces2 extends Component {
 
       handleActiveChange = (id, e) => {
         e.preventDefault();
-        const card  = this.state.card;
+        const cards  = this.state.cards;
         this.setState({
             active : 'on',
-            card: card.map( 
+            cards: cards.map( 
                 c => {
                   if(c.id === id){
                     c.selected = true;
@@ -46,8 +47,8 @@ class Spaces2 extends Component {
                     c.selected = false;
                   }
                   return c;
-              })
-            
+              }),
+            selectedId: id
         });
       }
 
@@ -55,7 +56,9 @@ class Spaces2 extends Component {
         
         return (
             <div>
-                <StyledHeader title="공간유형 선택" msg="상업공간" />
+                <BigTitle text="공간유형 선택" />
+                <MidTitle text="상업공간" />
+      
                 <ContentBox>
                 { 
                   this.state.cards.map((card,index)=>
@@ -65,23 +68,35 @@ class Spaces2 extends Component {
                       title={card.title}
                       subTitle={card.subTitle}
                       selected={card.selected}
-                      onClick={(e) => this.handleActiveChange(card.id, e)}
+                      onClick={ e => this.handleActiveChange(card.id, e)}
                     />
                   )
-                 }
+                }
                     
                 </ContentBox>
                 <BttonBox>
                     <Button onClick={_ => {
-                        let {history} = this.props
-                        history.push('/concierge/spaces1')
+                        let {history,location} = this.props
+                        //history.push('/concierge/spaces1')
+                        history.push({
+                          pathname:'/concierge/spaces1',
+                          state: {
+                            parentId : location.state.parentId
+                          }
+                         })
                       }     
                     }>이전으로</Button>
                     <Button active={this.state.active}
                       style={{position:'absolute'}}
                       onClick={_ => {
                         let {history} = this.props
-                        history.push('/concierge/spaces3')
+                        // history.push('/concierge/spaces3')
+                        history.push({
+                          pathname:'/concierge/spaces3',
+                          state: {
+                            parentId : this.state.selectedId
+                          }
+                        })
                       }     
                     }
                     >다음으로 </Button>
