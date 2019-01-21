@@ -68,7 +68,7 @@ const spaces3 = [
     {subTitle: "Retail",  value: 4, parentId: 5, id: 37, title: '기타 (숙박공간)', selected:false},
 
     {subTitle: "Retail",  value: 1, parentId: 6, id: 38, title: '금융(은행, 증권)', selected:false},
-    {subTitle: "Retail",  value: 2, parentId: 6, id: 39, title: '중개사무소(부동산 등)', selected:false},,
+    {subTitle: "Retail",  value: 2, parentId: 6, id: 39, title: '중개사무소(부동산 등)', selected:false},
     {subTitle: "Retail",  value: 3, parentId: 6, id: 40, title: '기타 (금융/중개)', selected:false},
  
     {subTitle: "Retail",  value: 1, parentId: 7, id: 41, title: '사옥', selected:false},
