@@ -16,8 +16,10 @@ const spaces2 = [
     {id: 4,  value: 5,title: "운동공간", subTitle: "Retail", selected:false, parentId: 1},
     {id: 5,  value: 6,title: "숙박공간", subTitle: "Retail", selected:false, parentId: 1},
     {id: 6,  value: 7,title: "금융/중개", subTitle: "Retail", selected:false, parentId: 1},
+
     {id: 7,  value: 1,title: "사무공간", subTitle: "Retail", selected:false, parentId: 3},
     {id: 8,  value: 2,title: "특수업무공간", subTitle: "Retail", selected:false, parentId: 3},
+    
     {id: 9,  value: 1,title: "공동주택", subTitle: "Retail", selected:false, parentId: 2},
     {id: 10, value: 2,title: "단독주택", subTitle: "Retail", selected:false, parentId: 2},
 ]

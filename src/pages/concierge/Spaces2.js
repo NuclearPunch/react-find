@@ -32,8 +32,14 @@ class Spaces2 extends Component {
                 {id: 5, title: "상업공간", subTitle: "Retail", selected:false},
                 {id: 6, title: "상업공간", subTitle: "Retail", selected:false},
                 {id: 7, title: "상업공간", subTitle: "Retail", selected:false},
-               ]
+               ],
+        cards : Util.spaces2
       }
+
+      componentDidMount(){
+         //let parentId = this.props.location.parentId
+      }
+
 
       handleActiveChange = (id, e) => {
         e.preventDefault();

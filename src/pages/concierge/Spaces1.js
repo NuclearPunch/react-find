@@ -26,7 +26,8 @@ class Spaces1 extends Component {
     super()
     this.state = {
         active : 'off',
-        card : Util.spaces1
+        card : Util.spaces1,
+        selectedId : ''
       }
 
     this.buttonRef = createRef()
@@ -44,8 +45,8 @@ class Spaces1 extends Component {
                 c.selected = false;
               }
               return c;
-            })
-
+            }),
+          selectedId : id
         });
       }
 
@@ -56,7 +57,14 @@ class Spaces1 extends Component {
             <div>
                 <StyledHeader title="공간유형 선택" msg="컨설팅할 공간을 선택해 주세요." />
                 <ContentBox>
-                    <ConciergeCard id={this.state.card[0].id} title={this.state.card[0].title} subTitle={this.state.card[0].subTitle} img={this.state.card[0].imgSrc} selected={this.state.card[0].selected} onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} type={"M"}/>
+                    <ConciergeCard 
+                      id={this.state.card[0].id} 
+                      title={this.state.card[0].title} 
+                      subTitle={this.state.card[0].subTitle} 
+                      img={this.state.card[0].imgSrc} 
+                      selected={this.state.card[0].selected} 
+                      onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} 
+                      type={"M"}/>
                     <ConciergeCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} img={this.state.card[1].imgSrc} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} type={"M"}/>
                     <ConciergeCard id={this.state.card[2].id} title={this.state.card[2].title} subTitle={this.state.card[2].subTitle} img={this.state.card[2].imgSrc} selected={this.state.card[2].selected} onClick={(e) => this.handleActiveChange(this.state.card[2].id, e)} type={"M"}/>
                 </ContentBox>
@@ -66,7 +74,12 @@ class Spaces1 extends Component {
                       style={{position:'absolute'}}
                       onClick={_ => {
                         let {history} = this.props
-                        history.push('/concierge/spaces2')
+                        history.push({
+                          pathname:'/concierge/spaces2',
+                          state: {
+                            parentId : this.state.selectedId
+                          }
+                        })
                       }     
                     }
                     >다음으로 </Button>
