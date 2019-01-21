@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyledHeader, ConciergeTextCard, Button } from 'components';
+import { BigTitle, MidTitle, ConciergeTextCard, Button } from 'components';
 
 import styled from 'styled-components';
 import Util from "../../lib/Util";
@@ -54,7 +54,9 @@ class Spaces3 extends Component {
        
         return (
             <div>
-                <StyledHeader title="공간유형 선택" msg="상업공간" />
+                <BigTitle text="공간유형 선택" />
+                <MidTitle text="상업공간" />
+                
                 <ContentBox>
                     <ConciergeTextCard id={this.state.card[0].id} title={this.state.card[0].title} subTitle={this.state.card[0].subTitle} selected={this.state.card[0].selected} onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} />
                     <ConciergeTextCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} />
