@@ -28,6 +28,7 @@ class Spaces2 extends Component {
 
       componentDidMount(){
          let parentId = this.props.location.state.parentId
+         console.log(this.props.location.state);
          let cards = Util.spaces2.filter(card => card.parentId == parentId)
          this.setState({cards})
       }
