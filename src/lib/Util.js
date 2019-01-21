@@ -9,7 +9,6 @@ const spaces1 = [
 ]
 
 const spaces2 = [
-
     {id: 0,  value: 1,title: "요식/식당", subTitle: "Retail", selected:false, parentId: 0},
     {id: 1,  value: 2,title: "상업공간", subTitle: "Residence", selected:false, parentId: 0},
     {id: 2,  value: 3,title: "교육공간", subTitle: "Office", selected:false, parentId: 0},

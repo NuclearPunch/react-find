@@ -1,4 +1,4 @@
-import React, { Component ,createRef} from 'react';
+import React, { Component} from 'react';
 import { StyledHeader, ConciergeCard, Button } from 'components';
 import styled from 'styled-components';
 import Util from  './../../lib/Util';
@@ -29,26 +29,25 @@ class Spaces1 extends Component {
         card : Util.spaces1,
         selectedId : ''
       }
-
-    this.buttonRef = createRef()
   }
-      handleActiveChange = (id, e) => {
-        e.preventDefault();
-        const card = this.state.card;
-        this.setState({
-          active: 'on',
-          card: card.map(
-            c => {
-              if (c.id === id) {
-                c.selected = true;
-              } else {
-                c.selected = false;
-              }
-              return c;
-            }),
-          selectedId : id
-        });
-      }
+  
+  handleActiveChange = (id, e) => {
+    e.preventDefault();
+    const card = this.state.card;
+    this.setState({
+      active: 'on',
+      card: card.map(
+        c => {
+          if (c.id === id) {
+            c.selected = true;
+          } else {
+            c.selected = false;
+          }
+          return c;
+        }),
+      selectedId: id
+    });
+  }
 
 
     render() {
