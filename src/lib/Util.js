@@ -34,6 +34,7 @@ const spaces2 = [
     {id: 8,  value: 2,title: "특수업무공간", subTitle: "Retail", selected:false, parentId: 2},
     {id: 9,  value: 1,title: "공동주택", subTitle: "Retail", selected:false, parentId: 1},
     {id: 10, value: 2,title: "단독주택", subTitle: "Retail", selected:false, parentId: 1},
+
 ]
 
 const spaces3 = [
