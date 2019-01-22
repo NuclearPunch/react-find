@@ -63,6 +63,13 @@ class Budget extends Component {
     handleActiveChange = (id, e) => {
         e.preventDefault();
         const focus  = this.state.focus;
+
+        if(this.state.min < 1 && this.state.max < 1){
+            this.setState({
+                active : 'off',        
+            });
+            return false;
+        }    
         this.setState({
             active : 'on',
             focus: focus.map( 
@@ -117,20 +124,23 @@ class Budget extends Component {
                     <Button active={this.state.active}
                       style={{position:'absolute'}}
                       onClick={ _ => {
-                        let {history, location} = this.props
-          
-                        history.push({
-                          pathname:'/concierge/styles',
-                          state: {
-                            formData : { 
-                                ...location.state.formData,
-                                budget : {
-                                    min : this.state.min,
-                                    max : this.state.max
+                        if(this.state.active === 'on'){
+                            let {history, location} = this.props
+
+                            history.push({
+                              pathname:'/concierge/styles',
+                              state: {
+                                formData : { 
+                                    ...location.state.formData,
+                                    budget : {
+                                        min : this.state.min,
+                                        max : this.state.max
+                                    }
                                 }
-                            }
-                          }
-                        })
+                              }
+                            })
+                        }
+                
                       }     
                     }
                     >다음으로 </Button>

@@ -145,8 +145,10 @@ class Priority extends Component {
                 }>이전으로</Button>
                 <Button active={this.state.active}
                   style={{position:'absolute'}}
+                  
                   onClick={ _ => {
-                    let {history, location} = this.props
+                    if(this.state.active === 'on'){
+                      let {history, location} = this.props
       
                     history.push({
                       pathname:'/concierge/splash',
@@ -157,6 +159,8 @@ class Priority extends Component {
                         }
                       }
                     })
+                    }
+                
                   }     
                 }
                 >다음으로 </Button>

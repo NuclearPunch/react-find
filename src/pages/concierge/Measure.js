@@ -59,42 +59,52 @@ class Measure extends Component {
         })
      }
 
-     meterToPy = _ => {
+     meterToPy = val => {
         this.setState({
-            py: (this.state.meter / 3.3).toFixed(2)
+            py: (val / 3.3).toFixed(2)
         });
     }
     
-     pyToMeter = _ => {
+     pyToMeter = val => {
         this.setState({
-             meter: (this.state.py * 3.3).toFixed(2)
+             meter: (val * 3.3).toFixed(2)
         });
     }
     
     handleChange = (e) => {
+    
         this.setState({
             [e.target.name]: e.target.value
         });
-        e.target.name === 'meter' ? this.meterToPy() : this.pyToMeter()
+        e.target.name === 'meter' ? this.meterToPy(e.target.value) : this.pyToMeter(e.target.value)
     }
 
 
     handleActiveChange = (id, e) => {
         e.preventDefault();
         const focus  = this.state.focus;
-        this.setState({
-            active : 'on',
-            focus: focus.map( 
-                a => {
-                  if(a.id === id){
-                    a.active = 'on';
-                  }else{
-                    a.active = 'off';
-                  }
-                  return a;
-              })
-            
-        });
+        if(this.state.meter < 1 && this.state.meter < 1){
+            this.setState({
+                active : 'off',        
+            });
+            return false;
+        }else{
+            this.setState({
+                active : 'on',
+                focus: focus.map( 
+                    a => {
+                      if(a.id === id){
+                        a.active = 'on';
+                      }else{
+                        a.active = 'off';
+                      }
+                      return a;
+                  })
+                
+            });
+        }
+       
+   
       }
 
     render() {

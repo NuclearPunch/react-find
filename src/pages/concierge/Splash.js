@@ -114,18 +114,21 @@ class Splash extends Component {
                     <Button active={this.state.active}
                     style={{position:'absolute'}}
                     onClick={ _ => {
-                        let {history, location} = this.props
+                        if(this.state.active === 'on'){
+                            let {history, location} = this.props
         
-                        history.push({
-                        pathname:'/concierge/experts',
-                        state: {
-                            formData : { 
-                                ...location.state.formData,
+                            history.push({
+                            pathname:'/concierge/experts',
+                            state: {
+                                formData : { 
+                                    ...location.state.formData,
+                                },
+                                experts : this.state.experts
                             },
-                            experts : this.state.experts
-                        },
-                       
-                        })
+                           
+                            })
+                        }
+                    
                     }     
                     }
                     >다음으로 </Button>                  

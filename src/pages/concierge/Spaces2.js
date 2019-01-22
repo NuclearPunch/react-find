@@ -118,18 +118,21 @@ class Spaces2 extends Component {
                     <Button active={this.state.active}
                       style={{position:'absolute'}}
                       onClick={_ => {
-                        let {history, location} = this.props
+                        if(this.state.active === 'on'){
+                          let {history, location} = this.props
           
-                        history.push({
-                          pathname:'/concierge/spaces3',
-                          state: {
-                            formData : {
-                              ...location.state.formData,
-                              spaces : this.state.spaces,
-                              cardIds : this.state.cardIds,
+                          history.push({
+                            pathname:'/concierge/spaces3',
+                            state: {
+                              formData : {
+                                ...location.state.formData,
+                                spaces : this.state.spaces,
+                                cardIds : this.state.cardIds,
+                              }
                             }
-                          }
-                        })
+                          })
+                        }
+                   
                       }     
                     }
                     >다음으로 </Button>
