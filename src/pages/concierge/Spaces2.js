@@ -23,32 +23,57 @@ const BttonBox = styled.div`
 class Spaces2 extends Component {
     state = {
         active : 'off',
-        cards : []
+        cards : [],
       }
 
+
       componentDidMount(){
-         let parentId = this.props.location.state.parentId
-         console.log(this.props.location.state);
-         let cards = Util.spaces2.filter(card => card.parentId == parentId)
-         this.setState({cards})
+         if(!this.props.location.state) return false;
+         let cardIds = this.props.location.state.formData.cardIds;
+         let parentId = cardIds.category
+         let cards = Util.spaces2.filter(card => card.parentId === parentId)
+         this.setState({
+           cards,
+           spaces : this.props.location.state.formData.spaces,
+           cardIds : cardIds,
+           active : 'on',
+           cards: cards.map(
+            c => {
+              if (c.id === this.props.location.state.formData.cardIds.space) {
+                c.selected = true;
+              } else {
+                c.selected = false;
+              }
+              return c;
+            }),
+          })
       }
      
 
-      handleActiveChange = (id, e) => {
+      handleActiveChange = (card, e) => {
         e.preventDefault();
-        const card  = this.state.card;
+        const cards  = this.state.cards;
+  
         this.setState({
             active : 'on',
-            card: card.map( 
+            cards: cards.map( 
                 c => {
-                  if(c.id === id){
+                  if(c.id === card.id){
                     c.selected = true;
                   }else{
                     c.selected = false;
                   }
                   return c;
-              })
-            
+              }),
+    
+              spaces: {
+                ...this.state.spaces,
+                space: card.value,
+              },
+              cardIds : {
+                ...this.state.cardIds,
+                space: card.id,
+              }
         });
       }
 
@@ -61,30 +86,50 @@ class Spaces2 extends Component {
       
                 <ContentBox>
                 { 
-                  this.state.cards.map((card,index)=>
+                  this.state.cards.map((card, index)=>
                     <ConciergeTextCard 
                       key={index} 
                       id={card.id}
                       title={card.title}
                       subTitle={card.subTitle}
                       selected={card.selected}
-                      onClick={(e) => this.handleActiveChange(card.id, e)}
+                      onClick={ e => this.handleActiveChange(card, e)}
                     />
                   )
-                 }
+                }
                     
                 </ContentBox>
                 <BttonBox>
                     <Button onClick={_ => {
-                        let {history} = this.props
-                        history.push('/concierge/spaces1')
+                        let {history,location} = this.props
+                      
+                        history.push({
+                          pathname:'/concierge/spaces1',
+                          state: {
+                            formData : { 
+                                ...location.state.formData,
+                                spaces : this.state.spaces,
+                                cardIds : this.state.cardIds,
+                            }
+                          }
+                         })
                       }     
                     }>이전으로</Button>
                     <Button active={this.state.active}
                       style={{position:'absolute'}}
                       onClick={_ => {
-                        let {history} = this.props
-                        history.push('/concierge/spaces3')
+                        let {history, location} = this.props
+          
+                        history.push({
+                          pathname:'/concierge/spaces3',
+                          state: {
+                            formData : {
+                              ...location.state.formData,
+                              spaces : this.state.spaces,
+                              cardIds : this.state.cardIds,
+                            }
+                          }
+                        })
                       }     
                     }
                     >다음으로 </Button>

@@ -1,4 +1,4 @@
-import React, { Component ,createRef} from 'react';
+import React, { Component } from 'react';
 import { BigTitle, MidTitle, ConciergeCard, Button } from 'components';
 import styled from 'styled-components';
 import Util from  './../../lib/Util';
@@ -26,26 +26,67 @@ class Spaces1 extends Component {
     super()
     this.state = {
         active : 'off',
-        card : Util.spaces1,
-        selectedId : ''
+        cards : Util.spaces1,
+        spaces : {
+          category : '',
+          space : '',
+          subcategory : '',
+        },
+        cardIds : {
+          category : '',
+          space : '',
+          subcategory : '',
+        }
       }
   }
+
+  componentDidMount(){
+    if(!this.props.location.state) return false;
+    if(!this.props.location.state.formData.spaces.category) return false;
+    let spaces = this.props.location.state.formData.spaces;
+    let cardIds = this.props.location.state.formData.cardIds;
   
-  handleActiveChange = (id, e) => {
-    e.preventDefault();
-    const card = this.state.card;
+  
+    const cards = this.state.cards;
+   
     this.setState({
-      active: 'on',
-      card: card.map(
+      spaces : spaces,
+      cardIds : cardIds,
+      active : 'on',
+      cards: cards.map(
         c => {
-          if (c.id === id) {
+          if (c.id === this.props.location.state.formData.cardIds.category) {
             c.selected = true;
           } else {
             c.selected = false;
           }
           return c;
         }),
-      selectedId: id
+     })
+ }
+  
+  handleActiveChange = (card, e) => {
+    e.preventDefault();
+    const cards = this.state.cards;
+    this.setState({
+      active: 'on',
+      cards: cards.map(
+        c => {
+          if (c.id === card.id) {
+            c.selected = true;
+          } else {
+            c.selected = false;
+          }
+          return c;
+        }),
+        spaces: {
+          ...this.state.spaces,
+          category: card.value,
+        },
+        cardIds : {
+          ...this.state.cardIds,
+          category: card.id,
+        }
     });
   }
 
@@ -57,29 +98,46 @@ class Spaces1 extends Component {
                 <BigTitle text="공간유형 선택" />
                 <MidTitle text="컨설팅할 공간을 선택해 주세요." />
                 <ContentBox>
-                    <ConciergeCard 
-                      id={this.state.card[0].id} 
-                      title={this.state.card[0].title} 
-                      subTitle={this.state.card[0].subTitle} 
-                      img={this.state.card[0].imgSrc} 
-                      selected={this.state.card[0].selected} 
-                      onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} 
-                      type={"M"}/>
-                    <ConciergeCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} img={this.state.card[1].imgSrc} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} type={"M"}/>
-                    <ConciergeCard id={this.state.card[2].id} title={this.state.card[2].title} subTitle={this.state.card[2].subTitle} img={this.state.card[2].imgSrc} selected={this.state.card[2].selected} onClick={(e) => this.handleActiveChange(this.state.card[2].id, e)} type={"M"}/>
+                  { 
+                    this.state.cards.map((card, index)=>
+                      <ConciergeCard 
+                        key={index} 
+                        id={card.id}
+                        title={card.title}
+                        img={card.imgSrc}
+                        subTitle={card.subTitle}
+                        selected={card.selected}
+                        type={"M"}
+                        onClick={ e => this.handleActiveChange(card, e)}
+                      />
+                    )
+                  }
                 </ContentBox>
                 <BttonBox>
                     <Button >이전으로</Button>                 
                     <Button active={this.state.active}
                       style={{position:'absolute'}}
                       onClick={_ => {
-                        let {history} = this.props
-                        history.push({
-                          pathname:'/concierge/spaces2',
-                          state: {
-                            parentId : this.state.selectedId
+                        if(this.state.active === 'on'){
+                          let {history, location} = this.props
+                          if(!location.state){
+                            location.state = {
+                              formData : {},
+                            }
                           }
-                        })
+                          history.push({
+                            pathname:'/concierge/spaces2',
+                            state: {
+                              formData : {
+                                ...location.state.formData,
+                                spaces : this.state.spaces,
+                                cardIds : this.state.cardIds
+                              }
+                        
+                            }
+                          })
+                        }
+                
                       }     
                     }
                     >다음으로 </Button>

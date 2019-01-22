@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { BigTitle, MidTitle, ConciergeRadio, Button } from 'components';
+import { BigTitle, MidTitle, Button } from 'components';
+import axios from 'axios';
 
 import styled from 'styled-components';
-import Util from "../../lib/Util";
 
 const ContentBox = styled.div`
   width: 500px;
@@ -21,65 +21,96 @@ const BttonBox = styled.div`
 
 
 
+
 class Splash extends Component {
   
     state = {
     active : 'off',
-    focus : [
-        {id: 0, active: "off"},
-        {id: 1, active: "off"},
-    ],
-    m2: '',
-    py: '',
+
     }
 
-    handleChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
+    componentDidMount(){
 
-    handleActiveChange = (id, e) => {
-        e.preventDefault();
-        const focus  = this.state.focus;
-        this.setState({
-            active : 'on',
-            focus: focus.map( 
-                a => {
-                  if(a.id === id){
-                    a.active = 'on';
-                  }else{
-                    a.active = 'off';
-                  }
-                  return a;
-              })
-            
-        });
+        let getNumber = () => {
+            axios.get('http://localhost:3001/api/concierge/experts', {
+                headers:{
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json'},
+                params: {
+                  formData: this.props.location.state.formData
+                },
+                responseType:'json',
+                timeout: 1000 
+              }).then(
+                (response) => { console.log(response) },
+                (error) => { console.log(error) }
+              );
+        }
+
+        getNumber();
+
+    /* 
+        axios.get('http://localhost:3001/api/test', {
+            headers:{
+                'Content-Type': 'application/json',
+               
+            },
+            params: {
+              formData: this.props.location.state.formData
+            },
+            responseType:'json',
+            timeout: 1000 
+          }).then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+         */
+    
       }
-
-
 
     render() {
        
         return (
             <div>
-                <BigTitle text="입력하신 조건들 중에 가장 우선순위로 생각하는 요소는 무엇인가요?" type="B" />
-                <MidTitle text="선택하신 기준을 중심으로 가장 적합한 포트폴리오와 전문가를 추천해드립니다." type="B" />
+                <MidTitle text="데이터 매칭중입니다…"  />
+                <BigTitle text="컨시어지 서비스는 전문가들의 실제사례로 이루어진 빅데이터를 활용해 "  type={"B"} />
+                <BigTitle text="가장 적합한 전문가를 매칭해드립니다. 잠시만 기다려주세요." type={"B"}   />
+               
                 <ContentBox>
-                    <ConciergeRadio active={'on'}/>
-                    <ConciergeRadio/>
-                    <ConciergeRadio/>
-                    <ConciergeRadio/>
+                   
                 </ContentBox>
                 <BttonBox>
-                    <Button active={this.state.active}
-                      style={{position:'absolute'}}
-                      onClick={_ => {
-                        let {history} = this.props
-                        history.push('/concierge/experts')
-                      }     
-                    }
-                    >다음으로 </Button>
+                <Button onClick={ _ => {
+                    let {history, location} = this.props
+                  
+                    history.push({
+                      pathname:'/concierge/priority',
+                      state: {
+                        formData : { 
+                            ...location.state.formData,
+                        }
+                      }
+                      })
+                  }     
+                }>이전으로</Button>
+                <Button active={this.state.active}
+                  style={{position:'absolute'}}
+                  onClick={ _ => {
+                    let {history, location} = this.props
+      
+                    history.push({
+                      pathname:'/concierge/experts',
+                      state: {
+                        formData : { 
+                            ...location.state.formData,
+                        }
+                      }
+                    })
+                  }     
+                }
+                >다음으로 </Button>                  
                 </BttonBox>
             </div>
 

@@ -1,20 +1,18 @@
 
 const style = [
-    '',
-    {title: "모던", imgSrc: "/img/concierge/style1.png",    subTitle: "Mordern",    selected:false},
-    {title: "북유럽", imgSrc: "/img/concierge/style2.png", subTitle: "Northern European", selected:false},
-    {title: "클래식", imgSrc: "/img/concierge/style3.png",    subTitle: "Classic",    selected:false},
-    {title: "프로방스&로맨틱", imgSrc: "/img/concierge/style4.png",    subTitle: "Provence & Romantic", selected:false},
-    {title: "빈티지", imgSrc: "/img/concierge/style5.png", subTitle: "Vintage", selected:false},
-    {title: "한국&아시아", imgSrc: "/img/concierge/style6.png",    subTitle: "Korean & Asian",    selected:false},
-    {title: "미니멀리즘", imgSrc: "/img/concierge/style7.png",    subTitle: "Minimalism",    selected:false},
-    {title: "인더스트리얼", imgSrc: "/img/concierge/style8.png", subTitle: "Industrial", selected:false},
-    {title: "기타", imgSrc: "/img/concierge/style9.png",    subTitle: "Etc",    selected:false},
-    {title: "앤틱", imgSrc: "/img/concierge/style10.png",    subTitle: "Antique",    selected:false},
-    {title: "내추럴", imgSrc: "/img/concierge/style11.png", subTitle: "Natural", selected:false},
-
+        {id: 1, title: "모던", imgSrc: "/img/concierge/style1.png",    subTitle: "Mordern",    selected:false},
+        {id: 2, title: "북유럽", imgSrc: "/img/concierge/style2.png", subTitle: "Northern European", selected:false},
+        {id: 3, title: "클래식", imgSrc: "/img/concierge/style3.png",    subTitle: "Classic",    selected:false},
+        {id: 4, title: "프로방스&로맨틱", imgSrc: "/img/concierge/style4.png",    subTitle: "Provence & Romantic", selected:false},
+        {id: 5, title: "빈티지", imgSrc: "/img/concierge/style5.png", subTitle: "Vintage", selected:false},
+        {id: 6, title: "한국&아시아", imgSrc: "/img/concierge/style6.png",    subTitle: "Korean & Asian",    selected:false},
+        {id: 7, title: "미니멀리즘", imgSrc: "/img/concierge/style7.png",    subTitle: "Minimalism",    selected:false},
+        {id: 8, title: "인더스트리얼", imgSrc: "/img/concierge/style8.png", subTitle: "Industrial", selected:false},
+        {id: 9, title: "기타", imgSrc: "/img/concierge/style9.png",    subTitle: "Etc",    selected:false},
+        {id: 10, title: "앤틱", imgSrc: "/img/concierge/style10.png",    subTitle: "Antique",    selected:false},
+        {id: 11, title: "내추럴", imgSrc: "/img/concierge/style11.png", subTitle: "Natural", selected:false},
     ]
-
+   
 const spaces1 = [
     {id: 0, value: 1, title: "상업공간", imgSrc: "/img/concierge/Retail.png",    subTitle: "Retail",    selected:false},
     {id: 2, value: 3, title: "주거공간", imgSrc: "/img/concierge/Residence.png", subTitle: "Residence", selected:false},
@@ -23,17 +21,17 @@ const spaces1 = [
 ]
 
 const spaces2 = [
-    {id: 0,  value: 1,title: "요식/식당", subTitle: "restaurant", selected:false, parentId: 0},
-    {id: 1,  value: 2,title: "상업공간", subTitle: "Retail", selected:false, parentId: 0},
-    {id: 2,  value: 3,title: "교육공간", subTitle: "education", selected:false, parentId: 0},
-    {id: 3,  value: 4,title: "의료공간", subTitle: "Remdeling", selected:false, parentId: 0},
-    {id: 4,  value: 5,title: "운동공간", subTitle: "Retail", selected:false, parentId: 0},
-    {id: 5,  value: 6,title: "숙박공간", subTitle: "Retail", selected:false, parentId: 0},
-    {id: 6,  value: 7,title: "금융/중개", subTitle: "Retail", selected:false, parentId: 0},
-    {id: 7,  value: 1,title: "사무공간", subTitle: "Retail", selected:false, parentId: 1},
-    {id: 8,  value: 2,title: "특수업무공간", subTitle: "Retail", selected:false, parentId: 1},
-    {id: 9,  value: 1,title: "공동주택", subTitle: "Retail", selected:false, parentId: 2},
-    {id: 10, value: 2,title: "단독주택", subTitle: "Retail", selected:false, parentId: 2},
+    {id: 0,  value: 1, title: "요식/식당", subTitle: "restaurant", selected:false, parentId: 0},
+    {id: 1,  value: 2, title: "상업공간", subTitle: "Retail", selected:false, parentId: 0},
+    {id: 2,  value: 3, title: "교육공간", subTitle: "education", selected:false, parentId: 0},
+    {id: 3,  value: 4, title: "의료공간", subTitle: "Remdeling", selected:false, parentId: 0},
+    {id: 4,  value: 5, title: "운동공간", subTitle: "Retail", selected:false, parentId: 0},
+    {id: 5,  value: 6, title: "숙박공간", subTitle: "Retail", selected:false, parentId: 0},
+    {id: 6,  value: 7, title: "금융/중개", subTitle: "Retail", selected:false, parentId: 0},
+    {id: 7,  value: 1, title: "사무공간", subTitle: "Retail", selected:false, parentId: 1},
+    {id: 8,  value: 2, title: "특수업무공간", subTitle: "Retail", selected:false, parentId: 1},
+    {id: 9,  value: 1, title: "공동주택", subTitle: "Retail", selected:false, parentId: 2},
+    {id: 10, value: 2, title: "단독주택", subTitle: "Retail", selected:false, parentId: 2},
 
 ]
 

@@ -36,7 +36,7 @@ const ImgCard = styled.img`
   `}
 `;
 const TitleBox = styled.div`
-  width: 118px;
+  width: 191px;
   height: 52px;
   font-family: AppleSDGothicNeo;
   font-weight: 500;

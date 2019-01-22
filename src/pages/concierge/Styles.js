@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BigTitle, MidTitle, ConciergeCard, Button } from 'components';
-
-import styled from 'styled-components';
 import Util from  './../../lib/Util';
+import styled from 'styled-components';
+
 
 const ContentBox = styled.div`
   width: 984px;
@@ -23,25 +23,59 @@ const BttonBox = styled.div`
 class Styles extends Component {
     state = {
         active : 'off',
-        card : [
-            {id: 0, title: "상업공간", imgSrc: "/img/concierge/Retail.png",  subTitle: "Retail", selected:false},
-            {id: 1, title: "주거공간", imgSrc: "/img/concierge/Residence.png", subTitle: "Residence", selected:false},
-            {id: 2, title: "사무공간", imgSrc: "/img/concierge/Office.png",  subTitle: "Office", selected:false},
-            {id: 3, title: "부분시공", imgSrc: "/img/concierge/Remdeling.png", subTitle: "Remdeling", selected:false},
-        ]
+        cards : Util.style,
+        style : []
     }
+    componentDidMount(){
+    
+        if(!this.props.location.state) return false;
+        if(!this.props.location.state.formData.style) return false;
+       
+        const style = this.props.location.state.formData.style;
+        this.setState({
+          active : 'on',
+          style  : style,
+          cards: this.state.cards.map(
+            c => {
+              if (style.indexOf(c.id) > -1) {
+                c.selected = true;
+              } else {
+                c.selected = false;
+              }
+              return c;
+            }),
+         })
+  
+      }
 
     handleActiveChange = (id, e) => {
         e.preventDefault();
-        const card  = this.state.card;
+        const cards  = this.state.cards;
         this.setState({
-            active : 'on',
-            card: card.map(
+            cards: cards.map(
                 c => {
+                    const style = this.state.style;
                     if(c.id === id){
-                        c.selected = true;
-                    }else{
-                        c.selected = false;
+                        if(c.selected){
+                            this.setState({
+                                style: style.filter(st => st !== id)
+                              })
+                              
+                        if(this.state.style.length < 2) {
+                            this.setState({
+                                active:  'off',
+                              })
+                        }
+                        }else{
+                            style.push(c.id)
+                            this.setState({
+                                active:  'on',
+                              })
+                          
+                        }
+                        c.selected = !c.selected ;
+                    
+                       
                     }
                     return c;
                 })
@@ -58,26 +92,56 @@ class Styles extends Component {
                 <BigTitle text="공간유형 선택" />
                 <MidTitle text="컨설팅할 공간을 선택해 주세요." />
                 <ContentBox>
-                    <ConciergeCard id={this.state.card[0].id} title={this.state.card[0].title} subTitle={this.state.card[0].subTitle} img={this.state.card[0].imgSrc} selected={this.state.card[0].selected} onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} type={"L"} />
-                    <ConciergeCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} img={this.state.card[1].imgSrc} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} type={"L"}/>
-                    <ConciergeCard id={this.state.card[2].id} title={this.state.card[2].title} subTitle={this.state.card[2].subTitle} img={this.state.card[2].imgSrc} selected={this.state.card[2].selected} onClick={(e) => this.handleActiveChange(this.state.card[2].id, e)} type={"L"}/>
-                    <ConciergeCard id={this.state.card[3].id} title={this.state.card[3].title} subTitle={this.state.card[3].subTitle} img={this.state.card[3].imgSrc} selected={this.state.card[3].selected} onClick={(e) => this.handleActiveChange(this.state.card[3].id, e)} type={"L"}/>
+                { 
+                  this.state.cards.map((card, index)=>
+                    <ConciergeCard 
+                      key={index} 
+                      id={card.id}
+                      title={card.title}
+                      subTitle={card.subTitle}
+                      selected={card.selected}
+                      img={card.imgSrc}
+                      type={"L"} 
+                      onClick={ e => this.handleActiveChange(card.id, e)}
+                    />
+                  )
+                }
                 </ContentBox>
                 <BttonBox>
-                <Button     onClick={_ => {
-                        let {history} = this.props
-                        history.push('/concierge/budget')
+                    <Button onClick={ _ => {
+                        let {history, location} = this.props
+                      
+                        history.push({
+                          pathname:'/concierge/budget',
+                          state: {
+                            formData : { 
+                                ...location.state.formData,
+                                style : this.state.style
+                            }
+                          }
+                         })
                       }     
                     }>이전으로</Button>
-                   
                     <Button active={this.state.active}
                       style={{position:'absolute'}}
-                      onClick={_ => {
-                        let {history} = this.props
-                        history.push('/concierge/priority')
+                      onClick={ _ => {
+                        if(this.state.active === 'on'){
+                            let {history, location} = this.props
+                            history.push({
+                              pathname:'/concierge/priority',
+                              state: {
+                                formData : { 
+                                    ...location.state.formData,
+                                    style : this.state.style
+                                }
+                              }
+                            })
+                        }  
+                   
                       }     
                     }
                     >다음으로 </Button>
+                
             
                 </BttonBox>
             </div>

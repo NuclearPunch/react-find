@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BigTitle, MidTitle, ExpertCard, Button } from 'components';
 
 import styled from 'styled-components';
-import Util from  './../../lib/Util';
 
 const ContentBox = styled.div`
   width: 984px;
@@ -50,11 +49,6 @@ class Experts extends Component {
         });
       }
 
-    movePath(path, post=false) {
-        if(post) this.props.history.push(Util.movePath(this.props.location.pathname, path));
-        if (this.state.active === 'off') return false;
-        this.props.history.push(Util.movePath(this.props.location.pathname, path));
-    }
 
     render() {
         return (

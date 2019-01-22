@@ -1,7 +1,6 @@
-import React, { Component ,createRef} from 'react';
-import { SmallTitle, MidTitle, ConciergeCard, Button } from 'components';
+import React, { Component } from 'react';
+import { SmallTitle, MidTitle, Button } from 'components';
 import styled from 'styled-components';
-import Util from  './../../lib/Util';
 
 
 const ContentBox = styled.div`

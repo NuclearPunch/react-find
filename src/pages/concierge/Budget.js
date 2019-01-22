@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BigTitle, MidTitle, ConciergeInput, Button } from 'components';
 
 import styled from 'styled-components';
-import Util from "../../lib/Util";
+
 
 const ContentBox = styled.div`
   width: 322px;
@@ -39,11 +39,22 @@ class Budget extends Component {
             {id: 0, active: "off"},
             {id: 1, active: "off"},
         ],
-        m2: '',
-        py: '',
+        min: '',
+        max: '',
     }
 
+    componentDidMount(){
+        if(!this.props.location.state.formData.budget) return false;
+        this.setState({
+            active : 'on',
+            min: this.props.location.state.formData.budget.min,
+            max: this.props.location.state.formData.budget.max,
+        })
+     }
+
+    
     handleChange = (e) => {
+    
         this.setState({
             [e.target.name]: e.target.value
         });
@@ -78,28 +89,52 @@ class Budget extends Component {
                 <MidTitle text="예산은 어떻게 되나요?" />
                 <ContentBox>
                     <div>
-                        <ConciergeInput  name="a" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.m2} />
+                        <ConciergeInput  name="min" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.min} />
                     </div>
                     <InlineBox/>
                     <div>
-                        <ConciergeInput  name="b" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.py} />
+                        <ConciergeInput  name="max" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.max} />
                     </div>
                 </ContentBox>
                 <BttonBox>
-                <Button     onClick={_ => {
-                        let {history} = this.props
-                        history.push('/concierge/measure')
+                    <Button onClick={ _ => {
+                        let {history, location} = this.props
+                      
+                        history.push({
+                          pathname:'/concierge/measure',
+                          state: {
+                            formData : { 
+                                ...location.state.formData,
+                                budget : {
+                                    min : this.state.min,
+                                    max : this.state.max
+                                }
+                            }
+                          }
+                         })
                       }     
                     }>이전으로</Button>
-                   
                     <Button active={this.state.active}
                       style={{position:'absolute'}}
-                      onClick={_ => {
-                        let {history} = this.props
-                        history.push('/concierge/styles')
+                      onClick={ _ => {
+                        let {history, location} = this.props
+          
+                        history.push({
+                          pathname:'/concierge/styles',
+                          state: {
+                            formData : { 
+                                ...location.state.formData,
+                                budget : {
+                                    min : this.state.min,
+                                    max : this.state.max
+                                }
+                            }
+                          }
+                        })
                       }     
                     }
                     >다음으로 </Button>
+                
                   
                 </BttonBox>
             </div>
