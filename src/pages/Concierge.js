@@ -5,9 +5,10 @@ import { Spaces1, Spaces2, Spaces3, Measure, Budget, Styles, Priority, Splash, E
 import styled from 'styled-components';
 
 const Box = styled.div`
-  position: fixed;
-  width: 1146px;
-  height: 100%;
+    position: relative;
+    max-width: 1146px;
+    height: auto;
+    padding-bottom: 30px;
   background: #f9f9f9;
   left: 50%;
   transform: translateX(-50%);
