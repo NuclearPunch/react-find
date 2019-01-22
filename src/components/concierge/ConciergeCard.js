@@ -7,7 +7,13 @@ const Card = styled.div`
   border: 1px solid #ebebeb;
   float: left;
   margin-left: 14px;
-    ${p => p.type === 'M' && `
+  text-align: center;
+  ${p => p.type === 'S' && `
+    width: 156px;
+    height: 204px;
+    padding: 5px 5px 0 5px;
+  `}
+ ${p => p.type === 'M' && `
       width: 232px;
       height: 319px;
  `}
@@ -21,10 +27,20 @@ const Card = styled.div`
     box-shadow: 1px 5px 10px 0 rgba(95, 95, 95, 0.5);
   `}
 
+  @media only screen and (max-width: 320px) {
+    margin-left: 0;
+  }
+
 `;
 const ImgCard = styled.img`
   background-color: #f9f9f9;
-  margin: 0 auto;
+  margin:auto;
+
+  ${p => p.type === 'S' && `
+       width: 144.8px;
+       height: 144.8px;
+  `}
+
   ${p => p.type === 'M' && `
       width: 234px;
       height: 234px;
@@ -47,6 +63,14 @@ const TitleBox = styled.div`
   text-align: center;
   color: rgba(128, 128, 128, 0.7);
   margin: 0 auto;
+
+  ${p => p.type === 'S' && `
+      margin-top: 8px;
+      font-size: 13px;
+      width: 115px;
+      height: 31px;
+  `}
+
   ${p => p.type === 'M' && `
     margin-top: 15px;
     font-size: 16px;
@@ -59,6 +83,9 @@ const TitleBox = styled.div`
 const Title = styled.div`
   font-weight: 600;
   color: rgba(27, 27, 27, 0.7);
+  ${p => p.type === 'S' && `
+  font-size: 13px;
+  `}
   ${p => p.type === 'M' && `
     font-size: 22px;
   `}

@@ -14,13 +14,24 @@ const Msg = styled.div`
   text-align: center;
   color: rgba(27, 27, 27, 0.7);
   padding-top: 10px;
+  ${p => p.type === 'B' && `
+      text-align: center;
+      font-family: AppleSDGothicNeo;
+      font-size: 20px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: 0.2px;
+      color: rgba(27, 27, 27, 0.7);
+  `}
 
 `;
 
 
 const MidTitle = (props) => {
   return (
-      <Msg>{props.text}</Msg>
+      <Msg type={props.type}>{props.text}</Msg>
 
   );
 };

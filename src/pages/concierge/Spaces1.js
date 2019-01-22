@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BigTitle, MidTitle, ConciergeCard, Button } from 'components';
 import styled from 'styled-components';
 import Util from  './../../lib/Util';
-
+import Media from 'react-media';
 
 const ContentBox = styled.div`
   width: 798px;
@@ -12,13 +12,54 @@ const ContentBox = styled.div`
 
 `;
 
+const MoblileContentBox = styled.div`
+    
+    margin-top: 15px;
+    display:flex;
+    flex-direction:row;
+    justify-content : center;
+
+`;
+
 const BttonBox = styled.div`
   width: 456px;
   height: 60px;
   margin: 0 auto;
   margin-top: 130px;
+  text-align: center;
+  ${p => p.type === 'S' && `
+     width: 260px;
+     height: 40px;
+     margin-top: 43px;
+  `}
 `;
 
+const Page = styled.div`
+   display:flex;
+   flex-direction:column;
+   justify-content : center;
+   align-item:center;
+   height:${p => `
+     ${p.height}px;
+  `}
+`;
+
+const UnusefulCard = styled.div`
+width: 156px;
+height: 204px;
+margin-left: 29px;
+@media only screen and (max-width: 320px) {
+  margin-left: 11px;
+}
+`;
+
+const MobilePage = styled.div`
+    
+
+@media only screen and (max-width: 320px) {
+   
+}
+`
 
 class Spaces1 extends Component {
 
@@ -36,7 +77,8 @@ class Spaces1 extends Component {
           category : '',
           space : '',
           subcategory : '',
-        }
+        },
+        windowHeight : window.innerHeight
       }
   }
 
@@ -45,8 +87,6 @@ class Spaces1 extends Component {
     if(!this.props.location.state.formData.spaces.category) return false;
     let spaces = this.props.location.state.formData.spaces;
     let cardIds = this.props.location.state.formData.cardIds;
-  
-  
     const cards = this.state.cards;
    
     this.setState({
@@ -90,13 +130,52 @@ class Spaces1 extends Component {
     });
   }
 
-
     render() {
     
         return (
             <div>
-                <BigTitle text="공간유형 선택" />
-                <MidTitle text="컨설팅할 공간을 선택해 주세요." />
+
+            <Media query="(max-width: 1146px)">
+               {matches =>
+                  matches ? (
+                   
+                   <MobilePage>
+                      <div>  
+                        <BigTitle text="공간유형 선택" type="B"/>
+                        <MidTitle text="컨설팅할 공간을 선택해 주세요." type="B" />
+                      </div>
+                       
+                          <MoblileContentBox >
+                              <ConciergeCard id={this.state.cards[0].id} title={this.state.cards[0].title} subTitle={this.state.cards[0].subTitle} img={this.state.cards[0].imgSrc} selected={this.state.cards[0].selected} onClick={(e) => this.handleActiveChange(this.state.cards[0], e)} type={"S"}/>
+                              <ConciergeCard id={this.state.cards[1].id} title={this.state.cards[1].title} subTitle={this.state.cards[1].subTitle} img={this.state.cards[1].imgSrc} selected={this.state.cards[1].selected} onClick={(e) => this.handleActiveChange(this.state.cards[1], e)} type={"S"}/>
+                          </MoblileContentBox>
+                          <MoblileContentBox style={{marginTop:10}}>
+                            <ConciergeCard id={this.state.cards[2].id} title={this.state.cards[2].title} subTitle={this.state.cards[2].subTitle} img={this.state.cards[2].imgSrc} selected={this.state.cards[2].selected} onClick={(e) => this.handleActiveChange(this.state.cards[2], e)} type={"S"}/>
+                            <UnusefulCard />
+                          </MoblileContentBox>
+                       
+                      <div > 
+                        <BttonBox type="S">
+                            <Button type="S">이전으로</Button>                 
+                            <Button type="S" active={this.state.active}
+                              style={{position:'absolute'}}
+                              onClick={_ => {
+                                let {history} = this.props
+                                history.push('/concierge/spaces2')
+                              }     
+                            }
+                            >다음으로 </Button>
+                          </BttonBox>
+                       </div>
+                   </MobilePage>
+
+               ) : (
+                 <Page height={this.state.windowHeight}>
+                <div>
+                  <BigTitle text="공간유형 선택" />
+                  <MidTitle text="컨설팅할 공간을 선택해 주세요." />
+                </div>
+                
                 <ContentBox>
                   { 
                     this.state.cards.map((card, index)=>
@@ -113,6 +192,7 @@ class Spaces1 extends Component {
                     )
                   }
                 </ContentBox>
+                <div>
                 <BttonBox>
                     <Button >이전으로</Button>                 
                     <Button active={this.state.active}
@@ -137,7 +217,6 @@ class Spaces1 extends Component {
                                 },
                                 status : 'koreaBuild'
                               }
-                        
                             }
                           })
                         }
@@ -145,7 +224,14 @@ class Spaces1 extends Component {
                       }     
                     }
                     >다음으로 </Button>
-                </BttonBox>
+                 </BttonBox>
+                 </div>
+
+                </Page>
+               )
+            }
+        </Media>
+                
             </div>
 
         );
