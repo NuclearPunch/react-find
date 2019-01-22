@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyledHeader, ConciergeInput, Button } from 'components';
+import { BigTitle, MidTitle, ConciergeInput, Button } from 'components';
 
 import styled from 'styled-components';
 import Util from "../../lib/Util";
@@ -75,7 +75,8 @@ class Measure extends Component {
        
         return (
             <div>
-                <StyledHeader title="면적/예산 설정" msg="공간의 면적이 어떻게 되나요?" />
+                <BigTitle text="면적/예산 설정" />
+                <MidTitle text="공간의 면적이 어떻게 되나요?" />
                 <ContentBox>
                     <div>
                         <ConciergeInput  name="m2" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.m2} />

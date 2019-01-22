@@ -1,5 +1,7 @@
 
-export { default as StyledHeader } from './concierge/Header';
+export { default as BigTitle } from './concierge/BigTitle';
+export { default as MidTitle } from './concierge/MidTitle';
+export { default as SmallTitle } from './concierge/SmallTitle';
 export { default as Button } from './concierge/Button';
 export { default as ConciergeInput } from './concierge/ConciergeInput';
 export { default as ConciergeRadio } from './concierge/ConciergeRadio';

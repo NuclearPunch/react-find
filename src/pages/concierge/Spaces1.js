@@ -1,5 +1,5 @@
-import React, { Component ,createRef} from 'react';
-import { StyledHeader, ConciergeCard, Button } from 'components';
+import React, { Component} from 'react';
+import { BigTitle, MidTitle, ConciergeCard, Button } from 'components';
 import styled from 'styled-components';
 import Util from  './../../lib/Util';
 import Media from 'react-media';
@@ -83,7 +83,8 @@ class Spaces1 extends Component {
                    
                    <>
                    
-                   <StyledHeader title="공간유형 선택" msg="컨설팅할 공간을 선택해 주세요." />
+                   <BigTitle text="공간유형 선택" />
+                   <MidTitle text="컨설팅할 공간을 선택해 주세요." />
                    <ContentBox>
                        <ConciergeCard id={this.state.card[0].id} title={this.state.card[0].title} subTitle={this.state.card[0].subTitle} img={this.state.card[0].imgSrc} selected={this.state.card[0].selected} onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} type={"M"}/>
                        <ConciergeCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} img={this.state.card[1].imgSrc} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} type={"M"}/>
@@ -110,11 +111,19 @@ class Spaces1 extends Component {
                ) : (
                  <Page height={this.state.windowHeight}>
                 <div>
-                    <StyledHeader title="공간유형 선택" msg="컨설팅할 공간을 선택해 주세요." />
+                  <BigTitle text="공간유형 선택" />
+                  <MidTitle text="컨설팅할 공간을 선택해 주세요." />
                 </div>
                 
                 <ContentBox>
-                    <ConciergeCard id={this.state.card[0].id} title={this.state.card[0].title} subTitle={this.state.card[0].subTitle} img={this.state.card[0].imgSrc} selected={this.state.card[0].selected} onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} type={"M"}/>
+                    <ConciergeCard 
+                      id={this.state.card[0].id} 
+                      title={this.state.card[0].title} 
+                      subTitle={this.state.card[0].subTitle} 
+                      img={this.state.card[0].imgSrc} 
+                      selected={this.state.card[0].selected} 
+                      onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} 
+                      type={"M"}/>
                     <ConciergeCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} img={this.state.card[1].imgSrc} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} type={"M"}/>
                     <ConciergeCard id={this.state.card[2].id} title={this.state.card[2].title} subTitle={this.state.card[2].subTitle} img={this.state.card[2].imgSrc} selected={this.state.card[2].selected} onClick={(e) => this.handleActiveChange(this.state.card[2].id, e)} type={"M"}/>
                 </ContentBox>
@@ -125,7 +134,12 @@ class Spaces1 extends Component {
                       style={{position:'absolute'}}
                       onClick={_ => {
                         let {history} = this.props
-                        history.push('/concierge/spaces2')
+                        history.push({
+                          pathname:'/concierge/spaces2',
+                          state: {
+                            parentId : this.state.selectedId
+                          }
+                        })
                       }     
                     }
                     >다음으로 </Button>

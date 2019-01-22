@@ -1,5 +1,19 @@
 
-const style = ['', '모던', '북유럽', '클래식', '프로방스&로맨틱', '빈티지', '한국&아시아', '미니멀리즘', '인더스트리얼', '기타', '앤틱', '내추럴']
+const style = [
+    '',
+    {title: "모던", imgSrc: "/img/concierge/style1.png",    subTitle: "Mordern",    selected:false},
+    {title: "북유럽", imgSrc: "/img/concierge/style2.png", subTitle: "Northern European", selected:false},
+    {title: "클래식", imgSrc: "/img/concierge/style3.png",    subTitle: "Classic",    selected:false},
+    {title: "프로방스&로맨틱", imgSrc: "/img/concierge/style4.png",    subTitle: "Provence & Romantic", selected:false},
+    {title: "빈티지", imgSrc: "/img/concierge/style5.png", subTitle: "Vintage", selected:false},
+    {title: "한국&아시아", imgSrc: "/img/concierge/style6.png",    subTitle: "Korean & Asian",    selected:false},
+    {title: "미니멀리즘", imgSrc: "/img/concierge/style7.png",    subTitle: "Minimalism",    selected:false},
+    {title: "인더스트리얼", imgSrc: "/img/concierge/style8.png", subTitle: "Industrial", selected:false},
+    {title: "기타", imgSrc: "/img/concierge/style9.png",    subTitle: "Etc",    selected:false},
+    {title: "앤틱", imgSrc: "/img/concierge/style10.png",    subTitle: "Antique",    selected:false},
+    {title: "내추럴", imgSrc: "/img/concierge/style11.png", subTitle: "Natural", selected:false},
+
+    ]
 
 const spaces1 = [
     {id: 0, value: 1, title: "상업공간", imgSrc: "/img/concierge/Retail.png",    subTitle: "Retail",    selected:false},
@@ -20,6 +34,7 @@ const spaces2 = [
     {id: 8,  value: 2,title: "특수업무공간", subTitle: "Retail", selected:false, parentId: 2},
     {id: 9,  value: 1,title: "공동주택", subTitle: "Retail", selected:false, parentId: 1},
     {id: 10, value: 2,title: "단독주택", subTitle: "Retail", selected:false, parentId: 1},
+
 ]
 
 const spaces3 = [

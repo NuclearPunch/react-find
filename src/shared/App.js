@@ -15,7 +15,6 @@ class App extends Component {
                     <Route path="/user/signup" component={SignUp}/>
                     <Route path="/consulting/result" component={ConsultingResult}/>
                     <Route componenct={NoMatch}/>
-                  
                 </Switch>
               
             </div> 
