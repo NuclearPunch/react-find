@@ -48,6 +48,11 @@ class Spaces3 extends Component {
             return c;
           }),
        })
+       if(!this.props.location.state.formData.spaces.subcategory){
+        this.setState({
+          active : 'off'
+        })
+      }
 
     }
 
@@ -119,17 +124,20 @@ class Spaces3 extends Component {
                     <Button active={this.state.active}
                       style={{position:'absolute'}}
                       onClick={_ => {
-                        let {history, location} = this.props
-                        history.push({
-                          pathname:'/concierge/measure',
-                          state: {
-                            formData : {
-                              ...location.state.formData,
-                              spaces : this.state.spaces,
-                              cardIds : this.state.cardIds,
+                        if(this.state.active === 'on'){
+                          let {history, location} = this.props
+                          history.push({
+                            pathname:'/concierge/measure',
+                            state: {
+                              formData : {
+                                ...location.state.formData,
+                                spaces : this.state.spaces,
+                                cardIds : this.state.cardIds,
+                              }
                             }
-                          }
-                        })
+                          })
+                        }
+                     
                        
                       }     
                     }

@@ -52,11 +52,18 @@ class Measure extends Component {
     componentDidMount(){
       
         if(!this.props.location.state.formData.measure) return false;
+        const measure = this.props.location.state.formData.measure;
         this.setState({
             active : 'on',
-            meter: this.props.location.state.formData.measure.meter,
-            py: this.props.location.state.formData.measure.py,
+            meter: measure.meter,
+            py: measure.py,
         })
+        
+        if(measure.meter < 1 && measure.py < 1 ){
+            this.setState({
+              active : 'off'
+            })
+          }
      }
 
      meterToPy = val => {
@@ -83,7 +90,7 @@ class Measure extends Component {
     handleActiveChange = (id, e) => {
         e.preventDefault();
         const focus  = this.state.focus;
-        if(this.state.meter < 1 && this.state.meter < 1){
+        if(this.state.meter < 1 && this.state.py < 1){
             this.setState({
                 active : 'off',        
             });
@@ -134,9 +141,9 @@ class Measure extends Component {
                           state: {
                             formData : { 
                                 ...location.state.formData,
-                                budget : {
-                                    min : this.state.min,
-                                    max : this.state.max
+                                measure : {
+                                    meter : this.state.meter,
+                                    py : this.state.py
                                 }
                             }
                           }
@@ -146,20 +153,23 @@ class Measure extends Component {
                     <Button active={this.state.active}
                       style={{position:'absolute'}}
                       onClick={ _ => {
-                        let {history, location} = this.props
+                        if(this.state.active === 'on'){
+                            let {history, location} = this.props
           
-                        history.push({
-                          pathname:'/concierge/budget',
-                          state: {
-                            formData : { 
-                                ...location.state.formData,
-                                measure : {
-                                    meter : this.state.meter,
-                                    py : this.state.py
+                            history.push({
+                              pathname:'/concierge/budget',
+                              state: {
+                                formData : { 
+                                    ...location.state.formData,
+                                    measure : {
+                                        meter : this.state.meter,
+                                        py : this.state.py
+                                    }
                                 }
-                            }
-                          }
-                        })
+                              }
+                            })
+                        }
+              
                       }     
                     }
                     >다음으로 </Button>

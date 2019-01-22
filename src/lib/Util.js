@@ -524,6 +524,19 @@ const spaces3 = [
     };
     const mainSpecialty = ['', '상업공간', '주거공간', '업무공간', '기타공간'];
 	const businessType = ['법인사업자', '개인/팀', '개인사업자'];
+
+	function numberComma(number) {
+		if(number < 1){
+			return 0;
+		}
+		return removeComma(number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	function removeComma(number) {
+		return parseInt(number.toString().replace(/,/g,""));
+	}
+
+
+
 export default{
     spaces1  : spaces1,
     spaces2  : spaces2,
@@ -535,5 +548,7 @@ export default{
     locationMap : locationMap,
     specialty : specialty,
     mainSpecialty : mainSpecialty,
-    businessType : businessType,
+	businessType : businessType,
+	numberComma : numberComma,
+	removeComma : removeComma,
 }

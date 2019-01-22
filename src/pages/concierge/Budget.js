@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BigTitle, MidTitle, ConciergeInput, Button } from 'components';
 
 import styled from 'styled-components';
+import Util from "../../lib/Util";
 
 
 const ContentBox = styled.div`
@@ -45,18 +46,30 @@ class Budget extends Component {
 
     componentDidMount(){
         if(!this.props.location.state.formData.budget) return false;
+        const budget = this.props.location.state.formData.budget;
         this.setState({
             active : 'on',
-            min: this.props.location.state.formData.budget.min,
-            max: this.props.location.state.formData.budget.max,
+            min: Util.numberComma(budget.min),
+            max: Util.numberComma(budget.max),
         })
+        
+        if(budget.min < 1 && budget.max < 1 ){
+            this.setState({
+              active : 'off'
+            })
+          }
+        
      }
 
     
     handleChange = (e) => {
-    
+        const val = Util.removeComma(e.target.value);
+        if(e.target.name === 'min' && val > Util.removeComma(this.state.max)){
+            return false;
+        }    
+         
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: Util.numberComma(e.target.value)
         });
     }
 
@@ -70,6 +83,7 @@ class Budget extends Component {
             });
             return false;
         }    
+  
         this.setState({
             active : 'on',
             focus: focus.map( 
@@ -113,8 +127,8 @@ class Budget extends Component {
                             formData : { 
                                 ...location.state.formData,
                                 budget : {
-                                    min : this.state.min,
-                                    max : this.state.max
+                                    min : Util.removeComma(this.state.min),
+                                    max : Util.removeComma(this.state.max)
                                 }
                             }
                           }
@@ -124,6 +138,12 @@ class Budget extends Component {
                     <Button active={this.state.active}
                       style={{position:'absolute'}}
                       onClick={ _ => {
+
+                        if(Util.removeComma(this.state.min) > Util.removeComma(this.state.max)){
+                            alert("최소금액이 최대금액보다 클 수 없습니다.")
+                            return false;
+                        }    
+                         
                         if(this.state.active === 'on'){
                             let {history, location} = this.props
 
@@ -133,8 +153,8 @@ class Budget extends Component {
                                 formData : { 
                                     ...location.state.formData,
                                     budget : {
-                                        min : this.state.min,
-                                        max : this.state.max
+                                        min : Util.removeComma(this.state.min),
+                                        max : Util.removeComma(this.state.max)
                                     }
                                 }
                               }
