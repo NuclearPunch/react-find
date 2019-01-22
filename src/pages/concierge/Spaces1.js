@@ -160,9 +160,30 @@ class Spaces1 extends Component {
                             <Button type="S" active={this.state.active}
                               style={{position:'absolute'}}
                               onClick={_ => {
-                                let {history} = this.props
-                                history.push('/concierge/spaces2')
-                              }     
+                                if(this.state.active === 'on'){
+                                  let {history, location} = this.props
+                                  if(!location.state){
+                                    location.state = {
+                                      formData : {},
+                                    }
+                                  }
+                                  history.push({
+                                    pathname:'/concierge/spaces2',
+                                    state: {
+                                      formData : {
+                                        ...location.state.formData,
+                                        spaces : this.state.spaces,
+                                        cardIds : this.state.cardIds,
+                                        specialty : {
+                                          main : 'interior'
+                                        },
+                                        status : 'koreaBuild'
+                                      }
+                                    }
+                                  })
+                                }
+                        
+                              }  
                             }
                             >다음으로 </Button>
                           </BttonBox>
