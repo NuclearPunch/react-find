@@ -58,6 +58,7 @@ class Spaces2 extends Component {
 
       componentDidMount(){
          if(!this.props.location.state) return false;
+         
          let cardIds = this.props.location.state.formData.cardIds;
          let parentId = cardIds.category
          let cards = Util.spaces2.filter(card => card.parentId === parentId)
@@ -76,6 +77,11 @@ class Spaces2 extends Component {
               return c;
             }),
           })
+          if(!this.props.location.state.formData.spaces.space){
+            this.setState({
+              active : 'off'
+            })
+          }
       }
      
 
