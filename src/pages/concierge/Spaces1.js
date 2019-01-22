@@ -213,7 +213,6 @@ class Spaces1 extends Component {
                                 spaces : this.state.spaces,
                                 cardIds : this.state.cardIds
                               }
-                        
                             }
                           })
                         }
