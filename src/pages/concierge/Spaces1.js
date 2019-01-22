@@ -131,7 +131,11 @@ class Spaces1 extends Component {
                               formData : {
                                 ...location.state.formData,
                                 spaces : this.state.spaces,
-                                cardIds : this.state.cardIds
+                                cardIds : this.state.cardIds,
+                                specialty : {
+                                  main : 'interior'
+                                },
+                                status : 'koreaBuild'
                               }
                         
                             }

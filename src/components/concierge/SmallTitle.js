@@ -4,17 +4,17 @@ import styled from 'styled-components';
 
 const Msg = styled.div`
   font-family: AppleSDGothicNeo;
-  font-size: 40px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 300;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.5px;
   text-align: center;
   color: rgba(27, 27, 27, 0.7);
-  padding-top: 10px;
-  ${p => p.color === 'red' && `
-    color: rgba(254, 23, 23, 0.7);
+  margin-top : 5px;
+  ${p => p.color  && `
+    color: ${p.color}
   `}
 `;
 

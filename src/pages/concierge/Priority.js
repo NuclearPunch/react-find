@@ -129,37 +129,37 @@ class Priority extends Component {
                     
                 </ContentBox>
                 <BttonBox>
-                     <Button onClick={ _ => {
-                        let {history, location} = this.props
-                      
-                        history.push({
-                          pathname:'/concierge/styles',
-                          state: {
-                            formData : { 
-                                ...location.state.formData,
-                                sort : this.state.sort
-                            }
-                          }
-                         })
-                      }     
-                    }>이전으로</Button>
-                    <Button active={this.state.active}
-                      style={{position:'absolute'}}
-                      onClick={ _ => {
-                        let {history, location} = this.props
-          
-                        history.push({
-                          pathname:'/concierge/splash',
-                          state: {
-                            formData : { 
-                                ...location.state.formData,
-                                sort : this.state.sort
-                            }
-                          }
-                        })
-                      }     
-                    }
-                    >다음으로 </Button>
+                  <Button onClick={ _ => {
+                    let {history, location} = this.props
+                  
+                    history.push({
+                      pathname:'/concierge/styles',
+                      state: {
+                        formData : { 
+                            ...location.state.formData,
+                            sort : this.state.sort
+                        }
+                      }
+                      })
+                  }     
+                }>이전으로</Button>
+                <Button active={this.state.active}
+                  style={{position:'absolute'}}
+                  onClick={ _ => {
+                    let {history, location} = this.props
+      
+                    history.push({
+                      pathname:'/concierge/splash',
+                      state: {
+                        formData : { 
+                            ...location.state.formData,
+                            sort : this.state.sort
+                        }
+                      }
+                    })
+                  }     
+                }
+                >다음으로 </Button>
                     
                 </BttonBox>
             </div>

@@ -87,7 +87,7 @@ class Spaces3 extends Component {
                 
                 <ContentBox>   
                 {
-                    this.state.cards.map((card,index)=>
+                    this.state.cards.map((card, index)=>
                     <ConciergeTextCard 
                       key={index} 
                       id={card.id}

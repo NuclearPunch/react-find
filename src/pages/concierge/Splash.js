@@ -3,7 +3,7 @@ import { BigTitle, MidTitle, Button } from 'components';
 import axios from 'axios';
 
 import styled from 'styled-components';
-
+import Util from "../../lib/Util";
 const ContentBox = styled.div`
   width: 500px;
   min-height: 330px;
@@ -25,13 +25,13 @@ const BttonBox = styled.div`
 class Splash extends Component {
   
     state = {
-    active : 'off',
+        active : 'off',
 
     }
 
     componentDidMount(){
 
-        let getNumber = () => {
+        const doConcierge = () => {
             axios.get('http://localhost:3001/api/concierge/experts', {
                 headers:{
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -41,13 +41,28 @@ class Splash extends Component {
                 },
                 responseType:'json',
                 timeout: 1000 
-              }).then(
-                (response) => { console.log(response) },
-                (error) => { console.log(error) }
+              }).then( response => {
+                    this.setState({
+                        experts : response.data.experts.map( expert => {
+                            expert.src = Util.srcConvert(expert.src, 2);
+                            expert.profileImage = Util.dehtmlSpecialChars(expert.profileImage);
+                            expert.businessName = Util.dehtmlSpecialChars(expert.businessName);
+                            expert.title = Util.srcConvert(expert.title, 1);
+                            expert.mainSpecialty = Util.mainSpecialty[expert.mainSpecialty];
+                            expert.businessType = Util.businessType[expert.businessType];
+                            expert.availableArea = Util.locationMap[JSON.parse(expert.availableArea)[0]];
+                            expert.selected = false;
+                            return expert;
+                          })
+                    })
+                   
+                },
+
+                error => { console.log(error) }
               );
         }
 
-        getNumber();
+        doConcierge();
 
     /* 
         axios.get('http://localhost:3001/api/test', {
@@ -82,35 +97,38 @@ class Splash extends Component {
                    
                 </ContentBox>
                 <BttonBox>
-                <Button onClick={ _ => {
-                    let {history, location} = this.props
-                  
-                    history.push({
-                      pathname:'/concierge/priority',
-                      state: {
-                        formData : { 
-                            ...location.state.formData,
+                    <Button onClick={ _ => {
+                        let {history, location} = this.props
+                    
+                        history.push({
+                        pathname:'/concierge/priority',
+                        state: {
+                            formData : { 
+                                ...location.state.formData,
+                            },
+                            experts : this.state.experts
                         }
-                      }
-                      })
-                  }     
-                }>이전으로</Button>
-                <Button active={this.state.active}
-                  style={{position:'absolute'}}
-                  onClick={ _ => {
-                    let {history, location} = this.props
-      
-                    history.push({
-                      pathname:'/concierge/experts',
-                      state: {
-                        formData : { 
-                            ...location.state.formData,
-                        }
-                      }
-                    })
-                  }     
-                }
-                >다음으로 </Button>                  
+                        })
+                    }     
+                    }>이전으로</Button>
+                    <Button active={this.state.active}
+                    style={{position:'absolute'}}
+                    onClick={ _ => {
+                        let {history, location} = this.props
+        
+                        history.push({
+                        pathname:'/concierge/experts',
+                        state: {
+                            formData : { 
+                                ...location.state.formData,
+                            },
+                            experts : this.state.experts
+                        },
+                       
+                        })
+                    }     
+                    }
+                    >다음으로 </Button>                  
                 </BttonBox>
             </div>
 

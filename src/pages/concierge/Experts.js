@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { BigTitle, MidTitle, ExpertCard, Button } from 'components';
+import { SmallTitle, MidTitle, ExpertCard, Button } from 'components';
 
 import styled from 'styled-components';
+
 
 const ContentBox = styled.div`
   width: 984px;
@@ -23,60 +24,112 @@ const BttonBox = styled.div`
 class Experts extends Component {
     state = {
         active : 'off',
-        card : [
-                {id: 0, title: "상업공간", imgSrc: "/img/concierge/Retail.png",  subTitle: "Retail", selected:false},
-                {id: 1, title: "주거공간", imgSrc: "/img/concierge/Residence.png", subTitle: "Residence", selected:false},
-                {id: 2, title: "사무공간", imgSrc: "/img/concierge/Office.png",  subTitle: "Office", selected:false},
-                {id: 3, title: "부분시공", imgSrc: "/img/concierge/Remdeling.png", subTitle: "Remdeling", selected:false},
-               ]
+        experts : [],
       }
 
-      handleActiveChange = (id, e) => {
+      componentDidMount(){
+        if(!this.props.location.state) return false;
+        if(!this.props.location.state.experts) return false;
+        const experts = this.props.location.state.experts;
+       
+        this.setState({
+          experts : experts
+         })
+         
+      }
+
+      handleActiveChange = (expert, e) => {
         e.preventDefault();
-        const card  = this.state.card;
+        const experts  = this.state.experts;
+
+        const selExs = experts.filter( e => {return e.selected} );
         this.setState({
             active : 'on',
-            card: card.map( 
-                c => {
-                  if(c.id === id){
-                    c.selected = true;
-                  }else{
-                    c.selected = false;
+            experts: experts.map( 
+                e => {
+                  if(e.userId === expert.userId && e.portfolioId === expert.portfolioId){
+                    if(!e.selected && selExs.length > 4){
+                      alert("전문가는 최대 5명까지 선택 가능합니다.");
+                      return e;
+                    }
+                    e.selected = !expert.selected;
+                    return e;
                   }
-                  return c;
-              })
-            
+                  
+                  return e;
+              }),
+    
+         
         });
       }
 
 
     render() {
         return (
-            <div>
-                <BigTitle text="공간유형 선택" />
-                <MidTitle text="컨설팅할 공간을 선택해 주세요." />
-                <ContentBox>
-                    <ExpertCard id={this.state.card[0].id} title={this.state.card[0].title} subTitle={this.state.card[0].subTitle} img={this.state.card[0].imgSrc} selected={this.state.card[0].selected} onClick={(e) => this.handleActiveChange(this.state.card[0].id, e)} type={"M"}/>
-                    <ExpertCard id={this.state.card[1].id} title={this.state.card[1].title} subTitle={this.state.card[1].subTitle} img={this.state.card[1].imgSrc} selected={this.state.card[1].selected} onClick={(e) => this.handleActiveChange(this.state.card[1].id, e)} type={"M"}/>
-                    <ExpertCard id={this.state.card[2].id} title={this.state.card[2].title} subTitle={this.state.card[2].subTitle} img={this.state.card[2].imgSrc} selected={this.state.card[2].selected} onClick={(e) => this.handleActiveChange(this.state.card[2].id, e)} type={"M"}/>
-                    <ExpertCard id={this.state.card[3].id} title={this.state.card[3].title} subTitle={this.state.card[3].subTitle} img={this.state.card[3].imgSrc} selected={this.state.card[3].selected} onClick={(e) => this.handleActiveChange(this.state.card[3].id, e)} type={"M"}/>
-                </ContentBox>
-                <BttonBox>
-                <Button     onClick={_ => {
-                        let {history} = this.props
-                        history.push('/concierge/budget')
-                      }     
+            <div >
+              <div style={{paddingTop:'40px'}}>
+                <MidTitle text="맞춤 전문가(회사)를 추천 드립니다." />
+              </div>
+              <div style={{marginTop:'20px'}}>
+                <SmallTitle text="고객님이 기입하신 정보에 따라 최적의 전문가를 추천해드립니다." />
+                <SmallTitle text="추천업체를 포함하여 5건의 상담 신청이 가능합니다." />
+                <SmallTitle text="*맞춤 전문가와 상담을 진행하시기를 추천합니다." color={"rgba(254, 23, 23, 0.7)"}/>
+              </div>
+              
+              <ContentBox>
+                {
+                this.state.experts.map((expert, index)=>
+                  <ExpertCard 
+                    key={index}  
+                    id={expert.userId}
+                    title={expert.businessName}
+                    subTitle={expert.title}
+                    img={expert.src}
+                    logo={expert.profileImage}
+                    mainSpecialty={expert.mainSpecialty}
+                    career={expert.career}
+                    businessType={expert.businessType}
+                    availableArea={expert.availableArea}
+                    selected = {expert.selected}
+                    onClick={ e => this.handleActiveChange(expert, e)}
+                    type={"M"}
+                  />
+                )
+              }  
+              </ContentBox>
+              <BttonBox>
+                <Button onClick={ _ => {
+                        let {history, location} = this.props
+                    
+                        history.push({
+                        pathname:'/concierge/priority',
+                        state: {
+                            formData : { 
+                                ...location.state.formData,
+                                
+                            }
+                        }
+                        })
+                    }     
                     }>이전으로</Button>
-                   
                     <Button active={this.state.active}
-                      style={{position:'absolute'}}
-                      onClick={_ => {
-                        let {history} = this.props
-                        history.push('/concierge/priority')
-                      }     
+                    style={{position:'absolute'}}
+                    onClick={ _ => {
+                        let {history, location} = this.props
+        
+                        history.push({
+                        pathname:'/concierge/experts',
+                        state: {
+                            formData : { 
+                                ...location.state.formData,
+                                
+                            }
+                        }
+                        })
+                    }     
                     }
-                    >다음으로 </Button>
-                </BttonBox>
+                    >다음으로 </Button>  
+              </BttonBox>
             </div>
 
         );

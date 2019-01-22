@@ -23,6 +23,8 @@ const ImgCard = styled.img`
   width: 266px;
   height: 218px;
 `;
+
+
 const ContentBox = styled.div`
   width: 266px;
   height: 199px;
@@ -61,12 +63,19 @@ const LogoBox = styled.div`
   position: relative;
   top: 3px;
   float: left;
+  ${p => p.logo && `
+    background-color: #000000;
+  `}
+  
 `;
 const ContentHDiv = styled.div`
   width: 219px;
   float: left;
   position: relative;
   top: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 const Title = styled.div`
   width: 216px;
@@ -81,20 +90,29 @@ const Title = styled.div`
   color: rgba(27, 27, 27, 0.7);
   text-align: left;
   padding-left: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 const Speciality = styled.div`
-  width: 216px;
-  height: 17px;
+  width: 95%;
+  height: 30px;
   font-family: AppleSDGothicNeo;
   font-size: 14px;
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.8;
+  -webkit-letter-spacing: 0.4px;
+  -moz-letter-spacing: 0.4px;
+  -ms-letter-spacing: 0.4px;
   letter-spacing: 0.4px;
-  color: rgba(27, 27, 27, 0.7);
+  color: rgba(27,27,27,0.7);
   text-align: left;
   padding-left: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const CbBox = styled.div`
@@ -148,13 +166,13 @@ const CbTime = styled.div`
 const ExpertCard = ({selected, ...p}) => {
   return (
     <Card selected={selected} onClick={p.onClick}>
-      <ImgCard src={p.img}></ImgCard>
+      <ImgCard src={`https://interiorbrothers.com${p.img}`}/>
       <ContentBox>
         <ContentHeader>
-          <LogoBox/>
+          <LogoBox logo={`${p.logo}`}/>
           <ContentHDiv>
-            <Title>디자인</Title>
-            <Speciality>인테리어(디자인 + 시공)</Speciality>
+            <Title>{p.title}</Title>
+            <Speciality>{p.subTitle}</Speciality>
           </ContentHDiv>
         </ContentHeader>
         <ContentBody>
@@ -165,10 +183,10 @@ const ExpertCard = ({selected, ...p}) => {
             <CbTitle>주요분야</CbTitle>
           </CbBox>
           <CbBox>
-            <CbContent>개인사업자</CbContent>
-            <CbContent>15년</CbContent>
-            <CbContent>서울</CbContent>
-            <CbContent>상업공간</CbContent>
+            <CbContent>{p.businessType}</CbContent>
+            <CbContent>{p.career}년</CbContent>
+            <CbContent>{p.availableArea}</CbContent>
+            <CbContent>{p.mainSpecialty }</CbContent>
           </CbBox>
           <CbTimeBox>
            <CbTime>20일(수) 상담가능</CbTime>
