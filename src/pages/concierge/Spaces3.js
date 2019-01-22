@@ -21,42 +21,59 @@ const BttonBox = styled.div`
 `;
 
 class Spaces3 extends Component {
-    // state = {
-    //     active : 'off',
-    //     card : [
-    //             {id: 0, title: "상업공간", subTitle: "Retail", selected:false},
-    //             {id: 1, title: "주거공간", subTitle: "Residence", selected:false},
-    //             {id: 2, title: "사무공간", subTitle: "Office", selected:false},
-    //             {id: 3, title: "부분시공", subTitle: "Remdeling", selected:false},
-    //            ]
-    //  }
     state = {
         active : 'off',
         cards : [],
-        selectedId: ''
+
     }
 
     componentDidMount(){
-        let parentId = this.props.location.state.parentId
-        let cards = Util.spaces3.filter(card => card.parentId == parentId)
-        this.setState({cards})
+    
+      if(!this.props.location.state) return false;
+      let cardIds = this.props.location.state.formData.cardIds;
+      let parentId = cardIds.space
+      let cards = Util.spaces3.filter(card => card.parentId === parentId)
+      this.setState({
+        cards,
+        spaces : this.props.location.state.formData.spaces,
+        cardIds : cardIds,
+        active : 'on',
+        cards: cards.map(
+          c => {
+            if (c.id === this.props.location.state.formData.cardIds.subcategory) {
+              c.selected = true;
+            } else {
+              c.selected = false;
+            }
+            return c;
+          }),
+       })
+
     }
 
-    handleActiveChange = (id, e) => {
+    handleActiveChange = (card, e) => {
         e.preventDefault();
         const cards  = this.state.cards;
         this.setState({
             active : 'on',
             cards: cards.map(
                 c => {
-                  if(c.id === id){
+                  if(c.id === card.id){
                     c.selected = true;
                   }else{
                     c.selected = false;
                   }
                   return c;
               }),
-            selectedId: id
+              spaces: {
+                ...this.state.spaces,
+                subcategory: card.value,
+              },
+              cardIds : {
+                ...this.state.cardIds,
+                subcategory: card.id,
+              }
+              
         });
     }
 
@@ -69,7 +86,7 @@ class Spaces3 extends Component {
                 <MidTitle text="상업공간" />
                 
                 <ContentBox>   
-                  {
+                {
                     this.state.cards.map((card,index)=>
                     <ConciergeTextCard 
                       key={index} 
@@ -77,20 +94,24 @@ class Spaces3 extends Component {
                       title={card.title}
                       subTitle={card.subTitle}
                       selected={card.selected}
-                      onClick={ e => this.handleActiveChange(card.id, e)}
+                      onClick={ e => this.handleActiveChange(card, e)}
                     />
                   )
-                  }
+                }
                 </ContentBox>
                 <BttonBox>
                     <Button onClick={_ => {
                         let {history,location} = this.props
-                       // history.push('/concierge/spaces2')
                        history.push({
                         pathname:'/concierge/spaces2',
                         state: {
-                          parentId : location.state.parentId
+                          formData : { 
+                              ...location.state.formData,
+                              spaces : this.state.spaces,
+                              cardIds : this.state.cardIds,
+                          }
                         }
+                
                        })
                       }     
                     }>이전으로</Button>
@@ -98,8 +119,18 @@ class Spaces3 extends Component {
                     <Button active={this.state.active}
                       style={{position:'absolute'}}
                       onClick={_ => {
-                        let {history} = this.props
-                        history.push('/concierge/measure')
+                        let {history, location} = this.props
+                        history.push({
+                          pathname:'/concierge/measure',
+                          state: {
+                            formData : {
+                              ...location.state.formData,
+                              spaces : this.state.spaces,
+                              cardIds : this.state.cardIds,
+                            }
+                          }
+                        })
+                       
                       }     
                     }
                     >다음으로 </Button>

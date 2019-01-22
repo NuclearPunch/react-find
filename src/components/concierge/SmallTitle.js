@@ -13,11 +13,8 @@ const Msg = styled.div`
   text-align: center;
   color: rgba(27, 27, 27, 0.7);
   padding-top: 10px;
-  ${p => p.type === 'B' && `
-    font-size: 25px;
-    font-weight: 300;
-    letter-spacing: 0.3px;
-    color: rgba(27, 27, 27, 0.7);
+  ${p => p.color === 'red' && `
+    color: rgba(254, 23, 23, 0.7);
   `}
 `;
 
@@ -25,7 +22,7 @@ const Msg = styled.div`
 const SmallTitle = (props) => {
   return (
     <div>
-      <Msg  type={props.type}>{props.text}</Msg>
+      <Msg  color={props.color}>{props.text}</Msg>
     </div>
   
   );

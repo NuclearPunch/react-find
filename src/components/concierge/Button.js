@@ -15,6 +15,13 @@ const Btn = styled.div`
   margin: 0 10px;
   float: left;
   cursor: pointer;
+  ${p => p.type === 'S' && `
+    width: 108px;
+    height: 40px;
+    font-size: 14px;
+    text-align: center;
+    line-height:40px;
+  `}
   ${p => p.active === 'off' && `
     background-color: #ebebeb;
     color: rgba(189, 189, 189, 0.9);
@@ -31,9 +38,9 @@ const Btn = styled.div`
 
 
 
-const Button = ({children, active, ...p}) => {
+const Button = ({children, active, type,...p}) => {
   return (
-    <Btn active={active} onClick={p.onClick}>{children}</Btn>
+    <Btn active={active} type ={type} onClick={p.onClick}>{children}</Btn>
   )
 };
 

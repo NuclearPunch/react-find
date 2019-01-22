@@ -20,7 +20,7 @@ const Ci = styled.input`
   background-position:center right 5px; 
   background-repeat:no-repeat;
   background-size: 42px;
-  ${p => p.name === 'm2' && `
+  ${p => p.name === 'meter' && `
     background-image : url('/img/concierge/m2.png');
   `}
   ${p => p.name === 'py' && `

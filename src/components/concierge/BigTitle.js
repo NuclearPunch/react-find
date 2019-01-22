@@ -14,19 +14,28 @@ const Title = styled.div`
   color: rgba(27, 27, 27, 0.7);
   padding-top: 80px;
   ${p => p.type === 'B' && `
-    font-size: 40px;
-    font-weight: bold;
-    letter-spacing: 0.4px;
-    color: rgba(27, 27, 27, 0.7);
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      color: rgba(27, 27, 27, 0.7);
+      padding-top: 7px;
+      padding-top: 40px;
   `}
-`;
 
+  
+`;
+// ${p => p.type === 'B' && `
+//     font-size: 25px;
+//     font-weight: 300;
+//     letter-spacing: 0.4px;
+//     color: rgba(27, 27, 27, 0.7);
+//     padding-top: 7px;
+//   `}
 
 
 const BigTitle = (props) => {
   return (
       <Title type={props.type}>{props.text}</Title>
-
   );
 };
 

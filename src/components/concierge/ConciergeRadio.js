@@ -12,14 +12,17 @@ const Cr = styled.div`
 `;
 
 const CrInput = styled.input`
-  width: 72px;
+  width: 66px;
   position: relative;
   height: 20px;
-  top: 36%;
+  margin-top: 30px;
+  float: left;
+  &:focus {
+    outline: none;
+  }
 `;
 const CrLabel = styled.label`
   position: relative;
-  top: 28%;
   font-family: AppleSDGothicNeo;
   font-size: 20px;
   font-weight: 600;
@@ -30,19 +33,66 @@ const CrLabel = styled.label`
   color: rgba(27, 27, 27, 0.7);
 `;
 
+const TitleDiv =  styled.div`
+  margin-top : 17px;
+  font-family: AppleSDGothicNeo;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(27, 27, 27, 0.7);
+  ${p => p.id !== 'auto' && `
+  width: 105px;
+   float: left;
+   margin-top : 27px;
+`}
+`;
+const ContentDiv =  styled.div`
+ 
+  margin-top : 4px;
+  font-family: AppleSDGothicNeo;
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(27, 27, 27, 0.7);
+  word-spacing: -2px;
+`;
+
+const ContentDiv2 =  styled.div`
+  font-family: AppleSDGothicNeo;
+  font-size: 15px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: -1px;
+  color: rgba(27, 27, 27, 0.7);
+  float: left;
+  margin-top: 31px;
+  margin-left: 20px;
+`;
 
 const ConciergeRadio = (props) => {
   return (
     <Cr active={props.active}>
-     
-        <CrInput
+      <CrInput
           type="radio"
-          name="react-tips"
-          value="option1"
-          id="1"
-          checked={true}
+          name={props.name}
+          value={props.value}
+          id={props.id}
+          defaultChecked={props.defaultChecked}
+          title={props.title}
+          subTitle={props.subTitle}
+          onClick={props.onClick}
         />
-        <CrLabel for="1">Option 1</CrLabel>
+      {
+       props.id === "auto" ? 
+        <CrLabel htmlFor={props.id}>
+          <TitleDiv  id={props.id}>{props.title}</TitleDiv>
+          <ContentDiv>{props.subTitle}</ContentDiv>
+        </CrLabel>
+        :
+        <CrLabel htmlFor={props.id}> <TitleDiv>{props.title}</TitleDiv> <ContentDiv2>{props.subTitle}</ContentDiv2></CrLabel>
+      }
+      
+       
     
   </Cr>
   )
