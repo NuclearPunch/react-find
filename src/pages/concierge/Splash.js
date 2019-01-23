@@ -48,7 +48,7 @@ class Splash extends Component {
         this.doProgressBar();
         if(!this.props.location.state) return false;
         const doConcierge = _ => {
-            axios.get('http://localhost:3001/api/concierge/experts', {
+            axios.get('http://192.168.1.119:3001/api/concierge/experts', {
                 headers:{
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Accept': 'application/json'},
