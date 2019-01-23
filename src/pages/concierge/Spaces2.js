@@ -27,6 +27,12 @@ const BttonBox = styled.div`
   height: 60px;
   margin: 0 auto;
   margin-top: 130px;
+  text-align: center;
+  ${p => p.type === 'S' && `
+     width: 260px;
+     height: 40px;
+     margin-top: 43px;
+  `}
 `;
 
 const Page = styled.div`
@@ -42,12 +48,22 @@ const Page = styled.div`
 const UnusefulCard = styled.div`
     width: 156px;
     height: 83px;
-    margin-left: 29px;
+    margin-left: 14px;
+    margin-top: 20px;
     @media only screen and (max-width: 320px) {
       margin-left: 11px;
     }
 `;
 
+const MobilePage = styled.div`
+   display:flex;
+   flex-direction:column;
+   justify-content : space-around;
+   align-item:center;
+   height:${p => `
+     ${p.height}px;
+  `}
+`;
 class Spaces2 extends Component {
     state = {
         active : 'off',
@@ -118,16 +134,21 @@ class Spaces2 extends Component {
           <Media query="(max-width: 1146px)">
             {
               m => m ? (
-              <>
-                    <BigTitle text="공간유형 선택" />
-                    <MidTitle text="상업공간" />
+                <MobilePage height={this.state.windowHeight}>
+                <div>
+                    <BigTitle text="공간유형 선택" type="B" />
+                    <MidTitle text="상업공간" type="B" />
+                </div>
+                <div>
                  {
                   _.chunk(this.state.cards,2).map(
                      card2 => (
-                         <MoblileContentBox>
+                       card2.length >= 2 
+                       ? (<MoblileContentBox>
                           {
                             card2.map((card, index)=>
                               <ConciergeTextCard 
+                                type = 'M'
                                 key={index} 
                                 id={card.id}
                                 title={card.title}
@@ -137,18 +158,68 @@ class Spaces2 extends Component {
                               />
                           )
                           }
-                         </MoblileContentBox>
-                     )
-                      
+                         </MoblileContentBox>)
+                       : (<MoblileContentBox>
+                            <ConciergeTextCard 
+                              type = 'M'
+                              id={card2[0].id}
+                              title={card2[0].title}
+                              subTitle={card2[0].subTitle}
+                              selected={card2[0].selected}
+                              onClick={ e => this.handleActiveChange(card2[0], e)}
+                            />
+                            <UnusefulCard />
+                          </MoblileContentBox>)
+                         
+                     )  
                   )
                  }
-              </>
+                 </div>
+                 <BttonBox type="S">
+                 <Button type="S" onClick={_ => {
+                     let {history,location} = this.props
+                     history.push({
+                       pathname:'/concierge/spaces1',
+                       state: {
+                         formData : { 
+                             ...location.state.formData,
+                             spaces : this.state.spaces,
+                             cardIds : this.state.cardIds,
+                         }
+                       }
+                     })
+                   }     
+                 }>이전으로</Button>
+                 <Button type="S" active={this.state.active}
+                   style={{position:'absolute'}}
+                   onClick={_ => {
+                     if(this.state.active === 'on'){
+                       let {history, location} = this.props
+       
+                       history.push({
+                         pathname:'/concierge/spaces3',
+                         state: {
+                           formData : {
+                             ...location.state.formData,
+                             spaces : this.state.spaces,
+                             cardIds : this.state.cardIds,
+                           }
+                         }
+                       })
+                     }
+               
+                   }     
+                 }
+                 >다음으로 </Button>
+               
+             </BttonBox>
+              </MobilePage>
               ):(
               <Page height={this.state.windowHeight}>
                   <div>
                     <BigTitle text="공간유형 선택" />
                     <MidTitle text="상업공간" />
-          
+              
                     <ContentBox>
                     { 
                       this.state.cards.map((card, index)=>

@@ -33,15 +33,23 @@ const Ci = styled.input`
     border: 1px solid #ffd400;
   `}
 
+  ${p => p.mobile === 'is' && `
+        width: 240px;
+        height: 40px;
+        font-size: 15px;
+  `}
+  @media only screen and (max-width: 320px) {
+    padding-left: 15px;
+  }
   &:focus {
     outline: none;
   }
 `;
 
 
-const ConciergeInput = ({active, type, ...p}) => {
+const ConciergeInput = ({active, type, mobile,...p}) => {
   return (
-    <Ci type="text" name={p.name} active={active} onFocus={p.onFocus} onChange={p.onChange} value={p.value} />
+    <Ci type="text" name={p.name} mobile = {mobile} active={active} onFocus={p.onFocus} onChange={p.onChange} value={p.value} />
   )
 };
 

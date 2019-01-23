@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 import { BigTitle, MidTitle, ConciergeInput, Button } from 'components';
-
 import styled from 'styled-components';
 import Util from "../../lib/Util";
-
+import Media from 'react-media';
 
 const ContentBox = styled.div`
+  display:flex;
+  flex-direction:column;
+  align-item:center;
   width: 322px;
   min-height: 330px;
   height: auto;
   margin: 0 auto;
   margin-top: 170px;
+  ${p => p.mobile === 'is' && `
+     margin-top: 10em;   
+  `}
+  @media only screen and (max-height: 568px) {
+    margin-top: 5em; 
+  }
+  @media only screen and (max-width: 320px) {
+    width: 300px; 
+  }
 `;
 
 const BttonBox = styled.div`
@@ -18,6 +29,12 @@ const BttonBox = styled.div`
   height: 60px;
   margin: 0 auto;
   margin-top: 130px;
+  text-align: center;
+  ${p => p.type === 'S' && `
+     width: 260px;
+     height: 40px;
+     margin-top: 0px;
+  `}
 `;
 
 const InlineBox = styled.div`
@@ -27,8 +44,25 @@ const InlineBox = styled.div`
     margin: 0 auto;
     margin-top: 48px;
     margin-bottom: 48px;
+`;
 
-
+const MobilePage = styled.div`
+   display:flex;
+   flex-direction:column;
+   justify-content : space-around;
+   align-item:center;
+   height:${p => `
+     ${p.height}px;
+  `}
+`;
+const Page = styled.div`
+   display:flex;
+   flex-direction:column;
+   justify-content : center;
+   align-item:center;
+   height:${p => `
+     ${p.height}px;
+  `}
 `;
 
 
@@ -42,6 +76,7 @@ class Budget extends Component {
         ],
         min: '',
         max: '',
+        windowHeight : window.innerHeight
     }
 
     componentDidMount(){
@@ -105,20 +140,29 @@ class Budget extends Component {
     render() {
        
         return (
-            <div>
-                <BigTitle text="면적/예산 설정" />
-                <MidTitle text="예산은 어떻게 되나요?" />
-                <ContentBox>
+            <Media query="(max-width: 1146px)"> 
+              {m => m 
+                ? (<MobilePage height={this.state.windowHeight}>
                     <div>
-                        <ConciergeInput  name="min" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.min} />
+                        <BigTitle text="면적/예산 설정" type="B" />
+                        <MidTitle text="예산은 어떻게 되나요?" type="B" />
                     </div>
-                    <InlineBox/>
+                    
                     <div>
-                        <ConciergeInput  name="max" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.max} />
+                        <ContentBox mobile='is'>
+                            <div>
+                                <ConciergeInput  mobile="is" name="min" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.min} />
+                            </div>
+                            <InlineBox/>
+                            <div>
+                                <ConciergeInput  mobile="is" name="max" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.max} />
+                            </div>
+                        </ContentBox>
                     </div>
-                </ContentBox>
-                <BttonBox>
-                    <Button onClick={ _ => {
+
+                    <div>
+                    <BttonBox type="S">
+                    <Button type="S" onClick={ _ => {
                         let {history, location} = this.props
                       
                         history.push({
@@ -135,7 +179,7 @@ class Budget extends Component {
                          })
                       }     
                     }>이전으로</Button>
-                    <Button active={this.state.active}
+                    <Button type="S" active={this.state.active}
                       style={{position:'absolute'}}
                       onClick={ _ => {
 
@@ -164,11 +208,75 @@ class Budget extends Component {
                       }     
                     }
                     >다음으로 </Button>
-                
-                  
                 </BttonBox>
-            </div>
+                    
+                    </div>
+                    
+                </MobilePage>) 
 
+                : (<Page height={this.state.windowHeight}>
+                    <BigTitle text="면적/예산 설정" />
+                    <MidTitle text="예산은 어떻게 되나요?" />
+                    <ContentBox>
+                        <div>
+                            <ConciergeInput  name="min" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.min} />
+                        </div>
+                        <InlineBox/>
+                        <div>
+                            <ConciergeInput  name="max" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.max} />
+                        </div>
+                    </ContentBox>
+                    <BttonBox>
+                        <Button onClick={ _ => {
+                            let {history, location} = this.props
+                          
+                            history.push({
+                              pathname:'/concierge/measure',
+                              state: {
+                                formData : { 
+                                    ...location.state.formData,
+                                    budget : {
+                                        min : Util.removeComma(this.state.min),
+                                        max : Util.removeComma(this.state.max)
+                                    }
+                                }
+                              }
+                             })
+                          }     
+                        }>이전으로</Button>
+                        <Button active={this.state.active}
+                          style={{position:'absolute'}}
+                          onClick={ _ => {
+    
+                            if(Util.removeComma(this.state.min) > Util.removeComma(this.state.max)){
+                                alert("최소금액이 최대금액보다 클 수 없습니다.")
+                                return false;
+                            }    
+                             
+                            if(this.state.active === 'on'){
+                                let {history, location} = this.props
+    
+                                history.push({
+                                  pathname:'/concierge/styles',
+                                  state: {
+                                    formData : { 
+                                        ...location.state.formData,
+                                        budget : {
+                                            min : Util.removeComma(this.state.min),
+                                            max : Util.removeComma(this.state.max)
+                                        }
+                                    }
+                                  }
+                                })
+                            }
+                    
+                          }     
+                        }
+                        >다음으로 </Button>
+                    </BttonBox>
+                </Page>)
+              }
+            </Media>
         );
       }
     }

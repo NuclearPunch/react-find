@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { BigTitle, MidTitle, ConciergeTextCard, Button } from 'components';
-
 import styled from 'styled-components';
 import Util from "../../lib/Util";
+import Media from 'react-media';
+import _ from 'lodash';
 
 const ContentBox = styled.div`
   width: 1072px;
@@ -13,18 +14,61 @@ const ContentBox = styled.div`
 
 `;
 
+const MoblileContentBox = styled.div`
+    margin-top: 0px;
+    display:flex;
+    flex-direction:row;
+    justify-content : center;
+`;
+
+const Page = styled.div`
+   display:flex;
+   flex-direction:column;
+   justify-content : center;
+   align-item:center;
+   height:${p => `
+     ${p.height}px;
+  `}
+`;
+
+const MobilePage = styled.div`
+   display:flex;
+   flex-direction:column;
+   justify-content : space-around;
+   align-item:center;
+   height:${p => `
+     ${p.height}px;
+  `}
+`;
+
 const BttonBox = styled.div`
   width: 456px;
   height: 60px;
   margin: 0 auto;
   margin-top: 130px;
+  text-align: center;
+  ${p => p.type === 'S' && `
+     width: 260px;
+     height: 40px;
+     margin-top: 43px;
+  `}
+`;
+
+const UnusefulCard = styled.div`
+    width: 156px;
+    height: 83px;
+    margin-left: 14px;
+    margin-top: 20px;
+    @media only screen and (max-width: 320px) {
+      margin-left: 11px;
+    }
 `;
 
 class Spaces3 extends Component {
     state = {
         active : 'off',
         cards : [],
-
+        windowHeight : window.innerHeight
     }
 
     componentDidMount(){
@@ -86,7 +130,90 @@ class Spaces3 extends Component {
     render() {
        
         return (
-            <div>
+
+            <Media query="(max-width: 1146px)">
+            {
+              m => m 
+              ? (<MobilePage height={this.state.windowHeight}>
+                <div> 
+                  <BigTitle text="공간유형 선택" type="B" />
+                  <MidTitle text="상업공간" type="B" />
+                </div>
+                <div>
+             {
+              _.chunk(this.state.cards,2).map(
+                 card2 => (
+                   card2.length >= 2 
+                   ? (<MoblileContentBox>
+                      {
+                        card2.map((card, index)=>
+                          <ConciergeTextCard 
+                            type = 'M'
+                            key={index} 
+                            id={card.id}
+                            title={card.title}
+                            subTitle={card.subTitle}
+                            selected={card.selected}
+                            onClick={ e => this.handleActiveChange(card, e)}
+                          />
+                      )
+                      }
+                     </MoblileContentBox>)
+                   : (<MoblileContentBox>
+                        <ConciergeTextCard 
+                          type = 'M'
+                          id={card2[0].id}
+                          title={card2[0].title}
+                          subTitle={card2[0].subTitle}
+                          selected={card2[0].selected}
+                          onClick={ e => this.handleActiveChange(card2[0], e)}
+                        />
+                        <UnusefulCard />
+                      </MoblileContentBox>)
+                     
+                 )  
+              )
+             }
+             </div>
+             <BttonBox type="S">
+             <Button type="S" onClick={_ => {
+                 let {history,location} = this.props
+                 history.push({
+                   pathname:'/concierge/spaces2',
+                   state: {
+                     formData : { 
+                         ...location.state.formData,
+                         spaces : this.state.spaces,
+                         cardIds : this.state.cardIds,
+                     }
+                   }
+                 })
+               }     
+             }>이전으로</Button>
+             <Button type="S" active={this.state.active}
+               style={{position:'absolute'}}
+               onClick={_ => {
+                 if(this.state.active === 'on'){
+                   let {history, location} = this.props
+   
+                   history.push({
+                     pathname:'/concierge/measure',
+                     state: {
+                       formData : {
+                         ...location.state.formData,
+                         spaces : this.state.spaces,
+                         cardIds : this.state.cardIds,
+                       }
+                     }
+                   })
+                 }
+           
+               }     
+             }
+             >다음으로 </Button>
+         </BttonBox>
+          </MobilePage>)
+              : (<Page height={this.state.windowHeight}>
                 <BigTitle text="공간유형 선택" />
                 <MidTitle text="상업공간" />
                 
@@ -144,7 +271,10 @@ class Spaces3 extends Component {
                     >다음으로 </Button>
                    
                 </BttonBox>
-            </div>
+            </Page>)
+            }
+            </Media>
+            
            
         );
       }

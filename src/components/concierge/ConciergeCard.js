@@ -12,6 +12,13 @@ const Card = styled.div`
     width: 156px;
     height: 204px;
     padding: 5px 5px 0 5px;
+    margin-left: 5px;
+  `}
+  ${p => p.type === 'SL' && `
+    width: 156px;
+    height: 204px;
+    padding: 5px 5px 0 5px;
+    margin-left: 4px;
   `}
  ${p => p.type === 'M' && `
       width: 232px;
@@ -37,6 +44,10 @@ const ImgCard = styled.img`
   margin:auto;
 
   ${p => p.type === 'S' && `
+       width: 144.8px;
+       height: 144.8px;
+  `}
+  ${p => p.type === 'SL' && `
        width: 144.8px;
        height: 144.8px;
   `}
@@ -70,6 +81,12 @@ const TitleBox = styled.div`
       width: 115px;
       height: 31px;
   `}
+  ${p => p.type === 'SL' && `
+      margin-top: 8px;
+      font-size: 10px;
+      width: 115px;
+      height: 31px;
+  `}
 
   ${p => p.type === 'M' && `
     margin-top: 15px;
@@ -84,6 +101,9 @@ const Title = styled.div`
   font-weight: 600;
   color: rgba(27, 27, 27, 0.7);
   ${p => p.type === 'S' && `
+  font-size: 13px;
+  `}
+  ${p => p.type === 'SL' && `
   font-size: 13px;
   `}
   ${p => p.type === 'M' && `
