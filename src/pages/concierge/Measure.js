@@ -84,13 +84,24 @@ class Measure extends Component {
             [e.target.name]: e.target.value
         });
         e.target.name === 'meter' ? this.meterToPy(e.target.value) : this.pyToMeter(e.target.value)
+    
+        if(e.target.value < 1 ){
+            this.setState({
+                active : 'off',        
+            });
+            return false;
+        }else{
+            this.setState({
+                active : 'on',
+            });
+        }
     }
 
 
     handleActiveChange = (id, e) => {
         e.preventDefault();
         const focus  = this.state.focus;
-        if(this.state.meter < 1 && this.state.py < 1){
+        if(e.target.value < 1){
             this.setState({
                 active : 'off',        
             });
@@ -141,10 +152,10 @@ class Measure extends Component {
                           state: {
                             formData : { 
                                 ...location.state.formData,
-                                measure : {
-                                    meter : this.state.meter,
-                                    py : this.state.py
-                                }
+                               measure : {
+                                        meter : this.state.meter,
+                                        py : this.state.py
+                                    }
                             }
                           }
                          })

@@ -27,11 +27,11 @@ class Priority extends Component {
         active : 'off',
         sort : '',
         radios: [
-            {name : 'priority', value:1, id:'auto', defaultChecked:false,  active:'off',    title : '자동으로 추천해주세요.', subTitle : '(모든 조건을 종합해 추천하며, 유사도에 따라 일부 범위 밖의 결과가 추천될 수 있습니다.)' },
-            {name : 'priority', value:2, id:'space', defaultChecked:false, active:'off',   title : '공간 구분', subTitle : '' },
-            {name : 'priority', value:3, id:'measure', defaultChecked:false, active:'off', title : '공간 면적', subTitle : '' },
-            {name : 'priority', value:4, id:'budget', defaultChecked:false, active:'off',  title : '예산', subTitle : '' },
-            {name : 'priority', value:5, id:'style', defaultChecked:false, active:'off',   title : '스타일', subTitle : '' },
+            {name : 'priority', value:1, id:'auto',    checked:false,  active:'off', title : '자동으로 추천해주세요.', subTitle : '(모든 조건을 종합해 추천하며, 유사도에 따라 일부 범위 밖의 결과가 추천될 수 있습니다.)' },
+            {name : 'priority', value:2, id:'space',   checked:false,  active:'off', title : '공간 구분', subTitle : '' },
+            {name : 'priority', value:3, id:'measure', checked:false,  active:'off', title : '공간 면적', subTitle : '' },
+            {name : 'priority', value:4, id:'budget',  checked:false,  active:'off', title : '예산', subTitle : '' },
+            {name : 'priority', value:5, id:'style',   checked:false,  active:'off', title : '스타일', subTitle : '' },
         ],
     }
     
@@ -42,12 +42,13 @@ class Priority extends Component {
         if(!this.props.location.state) return false;
        
         const sort = this.props.location.state.formData.sort || '';
+       
         this.setState({
           active : 'on',
           sort  : sort,
           radios: this.state.radios.map(
             c => {
-              if (c.value === sort) {
+              if (c.value.toString() === sort) {
                 c.checked = true;
                 c.active = 'on';
               } else {
@@ -75,30 +76,35 @@ class Priority extends Component {
               return c;
             }),
          })
+       
   
       }
       
-    handleActiveChange = (radio, e) => {
-       
-        const radios = this.state.radios;
-        this.setState({
+
+          
+    handleChange = (e) => {
+      const radios = this.state.radios;
+     
+      this.setState({
           active: 'on',
           radios: radios.map(
             c => {
-              if (c.id === radio.id) {
+              if (c.id === e.target.id) {
                 c.active = 'on';
-                c.defaultChecked = true;
+                c.checked = true;
+               
               } else {
                 c.active = 'off';
-                c.defaultChecked = false;
+                c.checked = false;
+             
               }
               return c;
             }),
-            sort: radio.value,
-        });
-       
-  
-      }
+            sort: e.target.value,
+     
+      });
+
+  }
 
 
     render() {
@@ -112,19 +118,19 @@ class Priority extends Component {
                
                 <ContentBox>
                     { 
-                        this.state.radios.map((radio, index)=>
-                            <ConciergeRadio 
-                            key={index} 
-                            id={radio.id}
-                            name={radio.name}
-                            value={radio.value} 
-                            defaultChecked={radio.defaultChecked}
-                            active={radio.active}
-                            title={radio.title}
-                            subTitle={radio.subTitle}
-                            onClick={ e => this.handleActiveChange(radio, e)}
-                            />
-                        )
+                      this.state.radios.map((radio, index)=>
+                          <ConciergeRadio 
+                          key={index} 
+                          id={radio.id}
+                          name={radio.name}
+                          value={radio.value} 
+                          checked={radio.checked}
+                          active={radio.active}
+                          title={radio.title}
+                          subTitle={radio.subTitle}
+                          onChange={this.handleChange}
+                          />
+                      )
                     }
                     
                 </ContentBox>

@@ -71,6 +71,17 @@ class Budget extends Component {
         this.setState({
             [e.target.name]: Util.numberComma(e.target.value)
         });
+
+        if(e.target.value < 1 ){
+            this.setState({
+                active : 'off',        
+            });
+            return false;
+        }else{
+            this.setState({
+                active : 'on',
+            });
+        }
     }
 
     handleActiveChange = (id, e) => {
