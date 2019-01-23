@@ -38,11 +38,11 @@ class Experts extends Component {
          
       }
 
-      handleActiveChange = (expert, e) => {
-        e.preventDefault();
+      handleActiveChange = (expert, event) => {
+        event.preventDefault();
         const experts  = this.state.experts;
-
         const selExs = experts.filter( e => {return e.selected} );
+
         this.setState({
             active : 'on',
             experts: experts.map( 
@@ -77,6 +77,7 @@ class Experts extends Component {
               </div>
               
               <ContentBox>
+        
                 {
                 this.state.experts.map((expert, index)=>
                   <ExpertCard 
@@ -91,11 +92,15 @@ class Experts extends Component {
                     businessType={expert.businessType}
                     availableArea={expert.availableArea}
                     selected = {expert.selected}
+                    timetable = {expert.timetable}
                     onClick={ e => this.handleActiveChange(expert, e)}
                     type={"M"}
                   />
                 )
+                
               }  
+
+
               </ContentBox>
               <BttonBox>
                 <Button onClick={ _ => {

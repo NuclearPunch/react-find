@@ -535,6 +535,55 @@ const spaces3 = [
 		return parseInt(number.toString().replace(/,/g,""));
 	}
 
+	const dayCode = {
+		1: {
+			name: '수',
+			date: '22',
+		},
+		2: {
+			name: '목',
+			date: '23',
+		},
+		3: {
+			name: '금',
+			date: '24',
+		},
+		4: {
+			name: '토',
+			date: '25',
+		},
+		5: {
+			name: '일',
+			date: '26',
+		},
+	
+    };
+
+	
+	const timeCode = {
+		1: {
+			value: '11:00 ~ 11:50',
+		},
+		2: {
+			value: '12:00 ~ 12:50',
+		},
+		3: {
+			value: '13:00 ~ 13:50',
+		},
+		4: {
+			value: '14:00 ~ 14:50',
+		},
+		5: {
+			value: '15:00 ~ 15:50',
+		},
+		6: {
+			value: '16:00 ~ 16:50',
+		},
+		7: {
+			value: '17:00 ~ 17:50',
+		},
+	
+    };
 
 
 export default{
@@ -551,4 +600,6 @@ export default{
 	businessType : businessType,
 	numberComma : numberComma,
 	removeComma : removeComma,
+	dayCode		: dayCode,
+	timeCode	: timeCode,
 }

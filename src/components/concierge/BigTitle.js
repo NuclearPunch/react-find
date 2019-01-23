@@ -1,4 +1,4 @@
-// import React, { Component } from 'react';
+
 import React from 'react';
 import styled from 'styled-components';
 
@@ -24,13 +24,6 @@ const Title = styled.div`
 
   
 `;
-// ${p => p.type === 'B' && `
-//     font-size: 25px;
-//     font-weight: 300;
-//     letter-spacing: 0.4px;
-//     color: rgba(27, 27, 27, 0.7);
-//     padding-top: 7px;
-//   `}
 
 
 const BigTitle = (props) => {
