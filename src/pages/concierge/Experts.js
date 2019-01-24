@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { SmallTitle, MidTitle, ExpertCard, Button } from 'components';
+import axios from 'axios';
 
 import styled from 'styled-components';
-
+import _ from 'lodash';
 
 const ContentBox = styled.div`
   width: 984px;
@@ -43,15 +44,29 @@ class Experts extends Component {
       handleActiveChange = (expert, event) => {
         event.preventDefault();
         const experts  = this.state.experts;
-        const selExs = experts.filter( e => {return e.selected} );
+        const selExperts  = this.state.selExperts;
+        let active = 'on';
+        if(selExperts.length < 1){
+          selExperts.push(expert);
+          
+        }else{
+          const idx = selExperts.findIndex( e => e.userId === expert.userId );
+          if(idx > -1){
+            selExperts.splice(idx, 1);
+            if(selExperts.length < 1) active = 'off';
+          }else{
+            selExperts.push(expert);
+          }
+        }
 
+       
         this.setState({
-            active : 'on',
-            selExs : selExs,
+            active : active,
+            selExperts : selExperts,
             experts: experts.map( 
                 e => {
                   if(e.userId === expert.userId && e.portfolioId === expert.portfolioId){
-                    if(!e.selected && selExs.length > 4){
+                    if(!e.selected && this.state.length > 4){
                       alert("전문가는 최대 5명까지 선택 가능합니다.");
                       return e;
                     }
@@ -61,7 +76,70 @@ class Experts extends Component {
                   return e;
               }),
         });
+        
       }
+
+    
+
+
+      movePage(){
+          const getTimeTable = () => new Promise((resolve, reject) => {
+            let experts = this.state.selExperts.map( e => {
+                return e.userId;
+            });
+           
+            experts = _.uniq(experts);
+           
+            axios.get('http://192.168.1.119:3001/api/concierge/timetable', {
+                headers:{
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json'},
+                params: {
+                  experts: experts,
+                  kind   : 'timetable',
+                },
+                responseType:'json',
+                timeout: 1000 
+              }).then( response => {
+              
+                    const timetableMap = new Map();
+
+                    for(let i = 1; i <= 5; i++){
+                      timetableMap.set(i, response.data.timetable.filter(d => d.dayCode === i ))
+                    }
+
+                    this.setState({
+                      timetable : timetableMap,
+                    })
+
+                   resolve(true);
+                },
+
+                error => { console.log(error); reject(error) }
+              );
+          
+          });
+        
+  
+        const mp = async _ =>{
+            if(this.state.active === 'on'){
+                await getTimeTable();
+                let {history, location} = this.props
+                history.push({
+                    pathname:'/consulting/timetable',
+                    state: {
+                        formData : { 
+                            ...location.state.formData,
+                        },
+                        timetable : this.state.timetable
+                    },
+                })
+            }
+        }
+
+        mp();
+        
+    }
 
 
     render() {
@@ -117,27 +195,12 @@ class Experts extends Component {
                         })
                     }     
                     }>이전으로</Button>
+                    
                     <Button active={this.state.active}
                     style={{position:'absolute'}}
-                    onClick={ _ => {
-                      if(this.state.active === 'on'){
-                        let {history, location} = this.props
-        
-                        history.push({
-                        pathname:'/consulting/timetable',
-                        state: {
-                            formData : { 
-                                ...location.state.formData,
-                                experts : this.state.selExperts,
-                              
-                            }
-                        }
-                        })
-                      }
+                    onClick={ _ => this.movePage()}
+                    >다음으로 </Button>                  
               
-                    }     
-                    }
-                    >다음으로 </Button>  
               </BttonBox>
             </div>
 
