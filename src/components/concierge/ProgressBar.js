@@ -6,7 +6,10 @@ const PB = styled.div`
     height: 80px;
     width: 820px;
     background-color: #fff;
-  
+    ${p => p.device === "Mobile" && `
+      width: 280px;
+      height:30px;
+    `}
 `
 
 const FL = styled.div`
@@ -22,7 +25,7 @@ ${p => p.percentage  && `
 
 const ProgressBar = (props) => {
   return (
-      <PB>
+      <PB device={props.device}>
         <FL percentage={props.percentage} />
       </PB>
     )

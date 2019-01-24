@@ -22,6 +22,7 @@ const Msg = styled.div`
      font-size:11px;
   } 
   `}
+  
   ${p => p.type === "priority" && `
      font-size : 12px;
   `}

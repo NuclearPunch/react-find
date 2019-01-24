@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { SmallTitle, MidTitle, Button, ProgressBar } from 'components';
 import axios from 'axios';
-
 import styled from 'styled-components';
 import Util from "../../lib/Util";
 import CountUp from 'react-countup';
 import _ from 'lodash';
+import Media from 'react-media';
 
 const ContentBox = styled.div`
   width: 820px;
@@ -13,13 +13,31 @@ const ContentBox = styled.div`
   height: auto;
   margin: 0 auto;
   margin-top: 110px;
+  
+  ${p => p.device === "Mobile" && `
+      width: 280px;
+      margin-top: 60px;
+  `}
 `;
+
+// const BttonBox = styled.div`
+//   width: 208px;
+//   height: 60px;
+//   margin: 0 auto;
+//   margin-top: 130px;
+// `;
 
 const BttonBox = styled.div`
   width: 208px;
   height: 60px;
   margin: 0 auto;
   margin-top: 130px;
+  text-align: center;
+  ${p => p.type === 'S' && `
+     width: 130px;
+     height: 40px;
+     margin-top: 0px;
+  `}
 `;
 
 const Researching = styled.div`
@@ -32,9 +50,20 @@ const Researching = styled.div`
     letter-spacing: 0.3px;
     text-align: center;
     color: rgba(27, 27, 27, 0.7);
+    ${p => p.device === "Mobile" && `
+       font-size: 15px;
+    `}
 `;
 
-
+const MobilePage = styled.div`
+   display:flex;
+   flex-direction:column;
+   justify-content : space-around;
+   align-item:center;
+   height:${p => `
+     ${p.height}px;
+  `}
+`;
 
 
 class Splash extends Component {
@@ -49,11 +78,7 @@ class Splash extends Component {
        
         if(!this.props.location.state) return false;
         this.doProgressBar();
-     
-       
     }
-
-
 
     doProgressBar() {
 
@@ -76,7 +101,6 @@ class Splash extends Component {
       
      
     }
-
     
     movePage(){
 
@@ -194,33 +218,66 @@ class Splash extends Component {
         }
 
         mp();
-        
     }
 
     render() {
        
         return (
-            <div>
-                <MidTitle text="데이터 매칭중입니다…"  />
-                <SmallTitle text="컨시어지 서비스는 전문가들의 실제사례로 이루어진 빅데이터를 활용해 " />
-                <SmallTitle text="가장 적합한 전문가를 매칭해드립니다. 잠시만 기다려주세요."  />
-               
-                <ContentBox>
-                <ProgressBar percentage={this.state.percentage} />
-                <div style={{marginTop: "40px"}}>
-                 <Researching fw="600">리서치 중...</Researching>
-                 <Researching fw="400"> (<CountUp end={16212} duration={6.5}  decimal="," separator=","/> / 16,212) </Researching>
-                
+            <Media query="(max-width: 1146px)">
+               {
+                   m => m 
+                   ?(<>
+                      <div style={{padding:40}}>
+                        <MidTitle type="priority" text="데이터 매칭중입니다…"  />
+                        <SmallTitle type="priority" text="선택하신 기준을 중심으로" />
+                        <SmallTitle type="priority" text="가장 적합한 포트톨리오와 전문가를 추천해 드립니다."  />
+                      </div>
+                      <div>
+                            <ContentBox device="Mobile">
+                            <ProgressBar percentage={this.state.percentage} device="Mobile" />
+                                <div style={{marginTop: "40px"}}>
+                                    <Researching fw="600" device="Mobile">리서치 중...</Researching>
+                                    <Researching fw="400" device="Mobile"> (<CountUp end={16212} duration={6.5}  decimal="," separator=","/> / 16,212) </Researching>
+                                </div>
+                            
+                            </ContentBox>
+                      </div>
+
+                      <div>
+                            <BttonBox type="S" >
+                                <Button type = "S" active={this.state.active}
+                                style={{position:'absolute'}}
+                                onClick={ _ => this.movePage()}
+                                >결과보기 </Button>                  
+                            </BttonBox>
+                      </div>
+                    </>)
+                   :(
+
+                    <div>
+                    <MidTitle text="데이터 매칭중입니다…"  />
+                    <SmallTitle text="컨시어지 서비스는 전문가들의 실제사례로 이루어진 빅데이터를 활용해 " />
+                    <SmallTitle text="가장 적합한 전문가를 매칭해드립니다. 잠시만 기다려주세요."  />
+                   
+                    <ContentBox>
+                     <ProgressBar percentage={this.state.percentage} />
+                        <div style={{marginTop: "40px"}}>
+                            <Researching fw="600">리서치 중...</Researching>
+                            <Researching fw="400"> (<CountUp end={16212} duration={6.5}  decimal="," separator=","/> / 16,212) </Researching>
+                        </div>
+                    
+                    </ContentBox>
+                    <BttonBox >
+                        <Button active={this.state.active}
+                        style={{position:'absolute'}}
+                        onClick={ _ => this.movePage()}
+                        >결과보기 </Button>                  
+                    </BttonBox>
                 </div>
-                
-                </ContentBox>
-                <BttonBox>
-                    <Button active={this.state.active}
-                    style={{position:'absolute'}}
-                    onClick={ _ => this.movePage()}
-                    >결과보기 </Button>                  
-                </BttonBox>
-            </div>
+    
+                   )
+               }
+            </Media>
 
         );
       }

@@ -7,7 +7,7 @@ import Media from 'react-media';
 import * as RMButton from '@material-ui/core/Button';
 
 const ContentBox = styled.div`
-  max-width: 900px;
+  max-width: 952px;
   margin: 0 auto;
   margin-top: 3em;
   @media only screen and (max-width: 1146px) {
@@ -16,7 +16,8 @@ const ContentBox = styled.div`
   }
 `;
 
-const SubTitle = styled.p`
+
+const SubTitle = styled.div`
   text-align: center;
   margin : 0px 0 0 0;
   border: 1px solid black;
@@ -39,9 +40,6 @@ const SubTitle = styled.p`
     padding:2px;
   }
 
-  ${p => p.type === 'tableTitle' && `
-      
-  `}
 `;
 
 const BttonBox = styled.div`
@@ -57,6 +55,23 @@ const BttonBox = styled.div`
   `}
 `;
 
+const TableHead = styled.div`
+  width: 950px;
+  height: 58px;
+  line-height: 58px;
+  background-color: #ffffff;
+  border: 1px solid #5e5e5e;
+  border-bottom: 2px solid #f8cf1c;
+  font-family: AppleSDGothicNeo;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: rgba(27, 27, 27, 0.7);
+`;
+
 
 class ColumnGrid extends React.Component{
    gridColor = ['gray,yellow','white']
@@ -65,11 +80,11 @@ class ColumnGrid extends React.Component{
     const data = this.props.data
     return (
       <Grid container spacing={0} wrap="nowrap" >
-        <Grid item xs={2} style={{backgroundColor:'white'}}>
-          <SubTitle> {'11:00 - 11:50'}</SubTitle> 
+        <Grid item xs={2} style={{backgroundColor:'#cccccc'}}>
+          <SubTitle> {'11:0 - 11:50'}</SubTitle> 
         </Grid>
         <Grid item xs={2}>
-          <SubTitle> abc </SubTitle> 
+          <SubTitle> 113:00 - 11:50 </SubTitle> 
         </Grid>
         <Grid item xs={2} zeroMinWidth>
           <SubTitle> 11:00 - 11:50 </SubTitle>
@@ -102,61 +117,26 @@ class Timetable extends Component {
     render() {
     
         return (
-      
                 <div>
                   <MidTitle type="timetableDestop" text="컨설팅 신청" />
                   <SmallTitle type="timetableDestop" text="인테리어 컨설팅 신청은 최대 5회까지 가능합니다." />
                   <SmallTitle type="timetableDestop" text="추천 전문가 상담이 마감되었거나, 추천 외 전문가와의 상담을 원하실 경우 사무국으로 문의해주시기 바랍니다." />
                   <SmallTitle type="timetableDestop" color="red" text="사무국: 02-6121-6439" />
                   <ContentBox>
-  
                      <Grid item xs={12}  zeroMinWidth={true}>
-                         <div>
+                        <TableHead>
+                          <div style={{width:'163px', margin: '0 auto'}}>
+                            <div style={{float:'left'}}>{'<'}</div> 
+                            <div style={{float:'left', padding: '0 10px'}}> {' 2월11일(수) '}</div>
+                            <div style={{float:'left'}}>{'>'}</div>
+                          </div>
                          
-                          <SubTitle type="tableTitle">  
-                                <h2 style={{display:'inline'}} onClick={ _ => alert('left')}> 
-                                 {'<'}
-                                </h2>
-
-                                <h3 style={{display:'inline'}}> 
-                                 {' 2월11일 '}
-                                </h3>
-
-                                <h2 style={{display:'inline'}} onClick={_=>alert('right')}> 
-                                 {'>'}
-                                </h2>
-                            </SubTitle>
-                         
-                         </div>
+                        </TableHead>
                      </Grid>
                      <Grid container spacing={0}>
                        <Grid item xs={12}  zeroMinWidth={true}>
                         <ColumnGrid />
                        </Grid>
-                       <Grid item xs={12}  zeroMinWidth={true}>
-                       <ColumnGrid />
-                      </Grid>
-                      <Grid item xs={12}  zeroMinWidth={true}>
-                      <ColumnGrid />
-                     </Grid>
-                     <Grid item xs={12}  zeroMinWidth={true}>
-                     <ColumnGrid />
-                    </Grid>
-                        <Grid item xs={12}  zeroMinWidth={true}>
-                        <ColumnGrid />
-                      </Grid>
-                        <Grid item xs={12}  zeroMinWidth={true}>
-                        <ColumnGrid />
-                        </Grid>
-                        <Grid item xs={12}  zeroMinWidth={true}>
-                        <ColumnGrid />
-                      </Grid>
-                      <Grid item xs={12}  zeroMinWidth={true}>
-                      <ColumnGrid />
-                      </Grid>
-                      <Grid item xs={12}  zeroMinWidth={true}>
-                      <ColumnGrid />
-                      </Grid>
                      </Grid>
                     
                       

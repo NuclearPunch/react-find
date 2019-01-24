@@ -25,9 +25,11 @@ class Experts extends Component {
     state = {
         active : 'off',
         experts : [],
+        selExperts: [],
       }
 
       componentDidMount(){
+      
         if(!this.props.location.state) return false;
         if(!this.props.location.state.experts) return false;
         const experts = this.props.location.state.experts;
@@ -45,6 +47,7 @@ class Experts extends Component {
 
         this.setState({
             active : 'on',
+            selExs : selExs,
             experts: experts.map( 
                 e => {
                   if(e.userId === expert.userId && e.portfolioId === expert.portfolioId){
@@ -55,11 +58,8 @@ class Experts extends Component {
                     e.selected = !expert.selected;
                     return e;
                   }
-                  
                   return e;
               }),
-    
-         
         });
       }
 
@@ -111,7 +111,7 @@ class Experts extends Component {
                         state: {
                             formData : { 
                                 ...location.state.formData,
-                                
+                                experts : this.state.selExperts,
                             }
                         }
                         })
@@ -120,17 +120,21 @@ class Experts extends Component {
                     <Button active={this.state.active}
                     style={{position:'absolute'}}
                     onClick={ _ => {
+                      if(this.state.active === 'on'){
                         let {history, location} = this.props
         
                         history.push({
-                        pathname:'/concierge/experts',
+                        pathname:'/consulting/timetable',
                         state: {
                             formData : { 
                                 ...location.state.formData,
-                                
+                                experts : this.state.selExperts,
+                              
                             }
                         }
                         })
+                      }
+              
                     }     
                     }
                     >다음으로 </Button>  
