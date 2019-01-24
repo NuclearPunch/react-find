@@ -28,20 +28,32 @@ const Ci = styled.input`
   `}
   ${p => p.active === 'off' && `
    border: 1px solid #ebebeb;
-`}
+  `}
   ${p => p.active === 'on' && `
     border: 1px solid #ffd400;
   `}
-
+  ${p => p.mobile === 'is' && `
+        width: 220px;
+        height: 40px;
+        font-size: 15px;
+  `}
+  ${p => p.mobile === 'budget' && `
+        width: 200px;
+        height: 40px;
+        font-size: 15px;
+  `}
+  @media only screen and (max-width: 320px) {
+    padding-left: 15px;
+  }
   &:focus {
     outline: none;
   }
 `;
 
 
-const ConciergeInput = ({active, type, ...p}) => {
+const ConciergeInput = ({active, type, mobile,...p}) => {
   return (
-    <Ci type="text" name={p.name} active={active} onFocus={p.onFocus} onChange={p.onChange} value={p.value} />
+    <Ci type="text" name={p.name} mobile = {mobile} active={active} onFocus={p.onFocus} onChange={p.onChange} value={p.value} />
   )
 };
 

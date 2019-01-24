@@ -24,7 +24,23 @@ const Msg = styled.div`
       line-height: normal;
       letter-spacing: 0.2px;
       color: rgba(27, 27, 27, 0.7);
+      padding-top: 0px;
+      padding-bottom: 30px;
+      @media only screen and (max-width: 320px) {
+        padding-bottom: 0; 
+      }   
   `}
+  ${p => p.type === "timetableDestop" && `
+
+  padding-top: 1em;
+  @media only screen and (max-width: 700px) {
+     font-size:20px;
+     padding-top: 1.1em;
+  } 
+  `}
+  
+   
+ 
 
 `;
 

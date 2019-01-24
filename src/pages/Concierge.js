@@ -8,13 +8,12 @@ const Box = styled.div`
     position: relative;
     max-width: 1146px;
     height: auto;
+    overflow:auto;
     padding-bottom: 30px;
     background: #f9f9f9;
     left: 50%;
     transform: translateX(-50%);
 `;
-
-
 
 const Concierge = ({match}) => {
     return (

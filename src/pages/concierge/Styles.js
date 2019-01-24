@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { BigTitle, MidTitle, ConciergeCard, Button } from 'components';
 import Util from  './../../lib/Util';
 import styled from 'styled-components';
-
+import Media from 'react-media';
+import _ from 'lodash';
 
 const ContentBox = styled.div`
   width: 984px;
@@ -10,21 +11,76 @@ const ContentBox = styled.div`
   height: auto;
   margin: 0 auto;
   margin-top: 40px;
+`;
 
+const MoblileContentBox = styled.div`
+    margin-top: 15px;
+    display:flex;
+    flex-direction:row;
+    justify-content : center;
+    @media only screen and (max-width: 320px) {
+      margin-top: 5px;
+    }
 `;
 
 const BttonBox = styled.div`
   width: 456px;
   height: 60px;
   margin: 0 auto;
-  margin-top: 160px;
+  margin-top: 8em;
+  margin-bottom: 8em;
+  padding-top: 1em;
+  text-align: center;
+  ${p => p.type === 'S' && `
+     width: 260px;
+     height: 40px;
+     margin-top: 43px;
+     margin-bottom: 43px;
+  `}
 `;
+
+const Page = styled.div`
+   display:flex;
+   flex-direction:column;
+   justify-content : flex-start;
+   align-item:center;
+   height : ${window.innerHeight}
+`;
+const MobilePage = styled.div`
+   display:flex;
+   flex-direction:column;
+   justify-content : flex-start;
+   align-item:center;
+   height:${p => `
+     ${p.height}px
+  `}
+`;
+const UnusefulCard = styled.div`
+    width: 156px;
+    height: 146px;
+    margin-left: 0.75em;
+    margin-right: 0.75em;
+    @media only screen and (max-width: 320px) {
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+      width: 140.4px;
+      height: 126.36px;
+    }
+    @media only screen (min-width: 321px) and (max-width: 411px) {
+      margin-left: 1em;
+      margin-right: 1em;
+    }
+`;
+
+
 
 class Styles extends Component {
     state = {
         active : 'off',
         cards : Util.style,
-        style : []
+        style : [],
+       windowHeight : window.clientHeight > window.innerHeight ? window.clientHeight : window.innerHeight
+        //windowHeight : window.innerHeight
     }
     componentDidMount(){
     
@@ -88,25 +144,113 @@ class Styles extends Component {
     render() {
 
         return (
-            <div>
+          <Media query="(max-width: 1146px)">
+            {
+              m=> m
+              ?(<MobilePage height={this.state.windowHeight}>
+                   <div>
+                      <BigTitle text="공간유형 선택" type="B"/>
+                      <MidTitle text="컨설팅할 공간을 선택해 주세요." type="B"/>
+                   </div>
+
+                   <div>
+                      {
+                        _.chunk(this.state.cards,2).map(
+                          card2 => (
+                            card2.length >= 2 
+                            ? (<MoblileContentBox>
+                               {
+                                 card2.map((card, index)=>
+                                   <ConciergeCard 
+                                     type = 'Styles_s'
+                                     key={index} 
+                                     id={card.id}
+                                     title={card.title}
+                                     img={card.imgSrc}
+                                     subTitle={card.subTitle}
+                                     selected={card.selected}
+                                     onClick={ e => this.handleActiveChange(card.id, e)}
+                                   />
+                               )
+                               }
+                              </MoblileContentBox>)
+                            : (<MoblileContentBox>
+                                 <ConciergeCard 
+                                   type = 'Styles_s'
+                                   id={card2[0].id}
+                                   title={card2[0].title}
+                                   img={card2[0].imgSrc}
+                                   subTitle={card2[0].subTitle}
+                                   selected={card2[0].selected}
+                                   onClick={ e => this.handleActiveChange(card2[0].id,e)}
+                                 />
+                                 <UnusefulCard />
+                               </MoblileContentBox>)
+                          )  
+                       )
+                      }
+                   </div>
+
+                   <div>
+                   <BttonBox type="S">
+                   <Button type="S" onClick={ _ => {
+                       let {history, location} = this.props
+                     
+                       history.push({
+                         pathname:'/concierge/budget',
+                         state: {
+                           formData : { 
+                               ...location.state.formData,
+                               style : this.state.style
+                           }
+                         }
+                        })
+                     }     
+                   }>이전으로</Button>
+                   <Button type="S" active={this.state.active}
+                     style={{position:'absolute'}}
+                     onClick={ _ => {
+                       if(this.state.active === 'on'){
+                           let {history, location} = this.props
+                           history.push({
+                             pathname:'/concierge/priority',
+                             state: {
+                               formData : { 
+                                   ...location.state.formData,
+                                   style : this.state.style
+                               }
+                             }
+                           })
+                       }  
+                  
+                     }     
+                   }
+                   >다음으로 </Button>
+               </BttonBox>
+                   </div>
+                </MobilePage>)
+              :(<Page >
                 <BigTitle text="공간유형 선택" />
                 <MidTitle text="컨설팅할 공간을 선택해 주세요." />
+                <div>
                 <ContentBox>
-                { 
-                  this.state.cards.map((card, index)=>
-                    <ConciergeCard 
-                      key={index} 
-                      id={card.id}
-                      title={card.title}
-                      subTitle={card.subTitle}
-                      selected={card.selected}
-                      img={card.imgSrc}
-                      type={"L"} 
-                      onClick={ e => this.handleActiveChange(card.id, e)}
-                    />
-                  )
-                }
+                  { 
+                    this.state.cards.map((card, index)=>
+                      <ConciergeCard 
+                        key={index} 
+                        id={card.id}
+                        title={card.title}
+                        subTitle={card.subTitle}
+                        selected={card.selected}
+                        img={card.imgSrc}
+                        type={"L"} 
+                        onClick={ e => this.handleActiveChange(card.id, e)}
+                      />
+                    )
+                  }
                 </ContentBox>
+                </div>
+                <div>
                 <BttonBox>
                     <Button onClick={ _ => {
                         let {history, location} = this.props
@@ -141,11 +285,11 @@ class Styles extends Component {
                       }     
                     }
                     >다음으로 </Button>
-                
-            
                 </BttonBox>
-            </div>
-
+                </div>
+            </Page>)
+            }
+          </Media>
         );
     }
 }

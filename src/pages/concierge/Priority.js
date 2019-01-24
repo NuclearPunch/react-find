@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { SmallTitle, MidTitle, ConciergeRadio, Button } from 'components';
-
 import styled from 'styled-components';
 import Util from "../../lib/Util";
+import Media from 'react-media';
 
 const ContentBox = styled.div`
   width: 500px;
@@ -18,8 +18,6 @@ const BttonBox = styled.div`
   margin: 0 auto;
   margin-top: 130px;
 `;
-
-
 
 class Priority extends Component {
   
@@ -110,68 +108,75 @@ class Priority extends Component {
     render() {
        
         return (
-            <div  style={{paddingTop:'80px'}} >
-                <MidTitle text="입력하신 조건들 중에"  />
-                <MidTitle text="가장 우선순위로 생각하는 요소는 무엇인가요?"  />
-                <SmallTitle text="선택하신 기준을 중심으로" />
-                <SmallTitle text="가장 적합한 포트폴리오와 전문가를 추천해드립니다."   />
-               
-                <ContentBox>
-                    { 
-                      this.state.radios.map((radio, index)=>
-                          <ConciergeRadio 
-                          key={index} 
-                          id={radio.id}
-                          name={radio.name}
-                          value={radio.value} 
-                          checked={radio.checked}
-                          active={radio.active}
-                          title={radio.title}
-                          subTitle={radio.subTitle}
-                          onChange={this.handleChange}
-                          />
-                      )
-                    }
-                    
-                </ContentBox>
-                <BttonBox>
-                  <Button onClick={ _ => {
-                    let {history, location} = this.props
-                  
-                    history.push({
-                      pathname:'/concierge/styles',
-                      state: {
-                        formData : { 
-                            ...location.state.formData,
-                            sort : this.state.sort
-                        }
-                      }
-                      })
-                  }     
-                }>이전으로</Button>
-                <Button active={this.state.active}
-                  style={{position:'absolute'}} 
-                  onClick={ _ => {
-                    if(this.state.active === 'on'){
-                      let {history, location} = this.props
-      
-                    history.push({
-                      pathname:'/concierge/splash',
-                      state: {
-                        formData : { 
-                            ...location.state.formData,
-                            sort : this.state.sort
-                        }
-                      }
-                    })
-                    }
+          <Media query="(max-width: 1146px)">
+            { m => m ? (
+               <><p>less than 1146</p></>
+             ) : (
+              <div style={{paddingTop:'80px'}} >
+              <MidTitle text="입력하신 조건들 중에"  />
+              <MidTitle text="가장 우선순위로 생각하는 요소는 무엇인가요?"  />
+              <SmallTitle text="선택하신 기준을 중심으로" />
+              <SmallTitle text="가장 적합한 포트폴리오와 전문가를 추천해드립니다."   />
+             
+              <ContentBox>
+                  { 
+                    this.state.radios.map((radio, index)=>
+                        <ConciergeRadio 
+                        key={index} 
+                        id={radio.id}
+                        name={radio.name}
+                        value={radio.value} 
+                        checked={radio.checked}
+                        active={radio.active}
+                        title={radio.title}
+                        subTitle={radio.subTitle}
+                        onChange={this.handleChange}
+                        />
+                    )
+                  }    
+              </ContentBox>
+              <BttonBox>
+                <Button onClick={ _ => {
+                  let {history, location} = this.props
                 
-                  }     
-                }
-                >다음으로 </Button>
-                    
-                </BttonBox>
-            </div>
+                  history.push({
+                    pathname:'/concierge/styles',
+                    state: {
+                      formData : { 
+                          ...location.state.formData,
+                          sort : this.state.sort
+                      }
+                    }
+                    })
+                }     
+              }>이전으로</Button>
+              <Button active={this.state.active}
+                style={{position:'absolute'}} 
+                onClick={ _ => {
+                  if(this.state.active === 'on'){
+                    let {history, location} = this.props
+    
+                  history.push({
+                    pathname:'/concierge/splash',
+                    state: {
+                      formData : { 
+                          ...location.state.formData,
+                          sort : this.state.sort
+                      }
+                    }
+                  })
+                  }
+              
+                }     
+              }
+              >다음으로 </Button>
+                  
+              </BttonBox>
+          </div>
+             )
+            }
+          </Media>
+
 
         );
       }

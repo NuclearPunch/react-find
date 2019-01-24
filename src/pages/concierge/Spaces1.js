@@ -9,16 +9,13 @@ const ContentBox = styled.div`
   height: 330px;
   margin: 0 auto;
   margin-top: 170px;
-
 `;
 
 const MoblileContentBox = styled.div`
-    
     margin-top: 15px;
     display:flex;
     flex-direction:row;
     justify-content : center;
-
 `;
 
 const BttonBox = styled.div`
@@ -37,7 +34,7 @@ const BttonBox = styled.div`
 const Page = styled.div`
    display:flex;
    flex-direction:column;
-   justify-content : center;
+   justify-content : flex-start;
    align-item:center;
    height:${p => `
      ${p.height}px;
@@ -45,12 +42,12 @@ const Page = styled.div`
 `;
 
 const UnusefulCard = styled.div`
-width: 156px;
-height: 204px;
-margin-left: 29px;
-@media only screen and (max-width: 320px) {
-  margin-left: 11px;
-}
+    width: 156px;
+    height: 204px;
+    margin-left: 29px;
+    @media only screen and (max-width: 320px) {
+      margin-left: 11px;
+    }
 `;
 
 const MobilePage = styled.div`
