@@ -3,6 +3,14 @@ import { BigTitle, MidTitle, ConciergeInput, Button } from 'components';
 import styled from 'styled-components';
 import Media from 'react-media';
 
+
+const SubTitle = styled.p`
+   text-align: center;
+   margin : 6px 0 0 0;
+   color: rgba(128, 128, 128, 0.7);
+   letter-spacing: 1px;
+`;
+
 const ContentBox = styled.div`
   display:flex;
   flex-direction:column;
@@ -13,7 +21,9 @@ const ContentBox = styled.div`
   margin: 0 auto;
   margin-top: 170px;
   ${p => p.mobile === 'is' && `
-     margin-top: 10em;   
+     text-align : center;
+     margin-top: 6em;  
+     width: 315px;
   `}
   @media only screen and (max-height: 568px) {
     margin-top: 5em; 
@@ -33,8 +43,10 @@ const BttonBox = styled.div`
   ${p => p.type === 'S' && `
      width: 260px;
      height: 40px;
-     margin-top: 0px;
+     margin-top : 0;
+     padding-bottom:5em;
   `}
+
 `;
 
 const ArrowBox = styled.div`
@@ -58,7 +70,7 @@ const ArrowImg = styled.img`
 const MobilePage = styled.div`
    display:flex;
    flex-direction:column;
-   justify-content : space-around;
+   justify-content : flex-start;
    align-item:center;
    height:${p => `
      ${p.height}px;
@@ -67,12 +79,14 @@ const MobilePage = styled.div`
 const Page = styled.div`
    display:flex;
    flex-direction:column;
-   justify-content : center;
+   justify-content : flex-start;
    align-item:center;
    height:${p => `
      ${p.height}px;
   `}
 `;
+
+
 
 class Measure extends Component {
   
@@ -124,13 +138,23 @@ class Measure extends Component {
             [e.target.name]: e.target.value
         });
         e.target.name === 'meter' ? this.meterToPy(e.target.value) : this.pyToMeter(e.target.value)
-    }
 
+        if(e.target.value < 1 ){
+            this.setState({
+                active : 'off',        
+            });
+            return false;
+        }else{
+            this.setState({
+                active : 'on',
+            });
+        }
+    }
 
     handleActiveChange = (id, e) => {
         e.preventDefault();
         const focus  = this.state.focus;
-        if(this.state.meter < 1 && this.state.py < 1){
+        if(e.target.value < 1){
             this.setState({
                 active : 'off',        
             });
@@ -158,7 +182,7 @@ class Measure extends Component {
             <Media query="(max-width: 1146px)">
                {
                    m => m 
-                   ? (<MobilePage height={this.state.windowHeight}>
+                   ? (<MobilePage>
                       <div>
                         <BigTitle text="면적/예산 설정" type="B" />
                         <MidTitle text="공간의 면적이 어떻게 되나요?" type="B" />
@@ -167,14 +191,15 @@ class Measure extends Component {
                       <div>
                         <ContentBox mobile='is'>
                             <div>
-                                <ConciergeInput mobile="is" name="meter" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.meter} />
+                                <ConciergeInput mobile="budget" name="meter" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.meter} />
                             </div>
                             <ArrowBox>
                                 <ArrowImg src='/img/concierge/arrowUp.png'/>
                                 <ArrowImg src='/img/concierge/arrowDown.png'/>
                             </ArrowBox>
                             <div>
-                                <ConciergeInput mobile="is" name="py" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.py} />
+                                <ConciergeInput mobile="budget" name="py" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.py} />
+                                <SubTitle>1평은 약 3.3입니다<sup>2</sup></SubTitle>
                             </div>           
                         </ContentBox>
                       </div>

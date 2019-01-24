@@ -28,13 +28,17 @@ const Ci = styled.input`
   `}
   ${p => p.active === 'off' && `
    border: 1px solid #ebebeb;
-`}
+  `}
   ${p => p.active === 'on' && `
     border: 1px solid #ffd400;
   `}
-
   ${p => p.mobile === 'is' && `
-        width: 240px;
+        width: 220px;
+        height: 40px;
+        font-size: 15px;
+  `}
+  ${p => p.mobile === 'budget' && `
+        width: 200px;
         height: 40px;
         font-size: 15px;
   `}

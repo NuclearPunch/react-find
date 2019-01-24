@@ -14,7 +14,8 @@ const ContentBox = styled.div`
   margin: 0 auto;
   margin-top: 170px;
   ${p => p.mobile === 'is' && `
-     margin-top: 10em;   
+    text-align : center;
+    margin-top: 6em;   
   `}
   @media only screen and (max-height: 568px) {
     margin-top: 5em; 
@@ -34,6 +35,7 @@ const BttonBox = styled.div`
      width: 260px;
      height: 40px;
      margin-top: 0px;
+     padding-bottom:5em;
   `}
 `;
 
@@ -58,7 +60,7 @@ const MobilePage = styled.div`
 const Page = styled.div`
    display:flex;
    flex-direction:column;
-   justify-content : center;
+   justify-content : flex-start;
    align-item:center;
    height:${p => `
      ${p.height}px;
@@ -106,6 +108,17 @@ class Budget extends Component {
         this.setState({
             [e.target.name]: Util.numberComma(e.target.value)
         });
+
+        if(e.target.value < 1 ){
+            this.setState({
+                active : 'off',        
+            });
+            return false;
+        }else{
+            this.setState({
+                active : 'on',
+            });
+        }
     }
 
     handleActiveChange = (id, e) => {
@@ -151,11 +164,11 @@ class Budget extends Component {
                     <div>
                         <ContentBox mobile='is'>
                             <div>
-                                <ConciergeInput  mobile="is" name="min" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.min} />
+                                <ConciergeInput  mobile="budget" name="min" active={this.state.focus[0].active} onFocus={(e) => this.handleActiveChange(this.state.focus[0].id, e)}  onChange={this.handleChange}  value={this.state.min} />
                             </div>
                             <InlineBox/>
                             <div>
-                                <ConciergeInput  mobile="is" name="max" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.max} />
+                                <ConciergeInput  mobile="budget" name="max" active={this.state.focus[1].active} onFocus={(e) => this.handleActiveChange(this.state.focus[1].id, e)}  onChange={this.handleChange}  value={this.state.max} />
                             </div>
                         </ContentBox>
                     </div>

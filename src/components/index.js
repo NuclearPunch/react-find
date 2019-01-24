@@ -8,3 +8,4 @@ export { default as ConciergeRadio } from './concierge/ConciergeRadio';
 export { default as ConciergeCard } from './concierge/ConciergeCard';
 export { default as ConciergeTextCard } from './concierge/ConciergeTextCard';
 export { default as ExpertCard } from './concierge/ExpertCard';
+export { default as ProgressBar } from './concierge/ProgressBar';

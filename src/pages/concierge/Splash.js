@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { SmallTitle, MidTitle, Button } from 'components';
+import { SmallTitle, MidTitle, Button, ProgressBar } from 'components';
 import axios from 'axios';
 
 import styled from 'styled-components';
 import Util from "../../lib/Util";
+import CountUp from 'react-countup';
+
 const ContentBox = styled.div`
-  width: 500px;
+  width: 820px;
   min-height: 330px;
   height: auto;
   margin: 0 auto;
@@ -19,6 +21,18 @@ const BttonBox = styled.div`
   margin-top: 130px;
 `;
 
+const Researching = styled.div`
+    font-family: AppleSDGothicNeo;
+    font-size: 25px;
+    font-weight: ${p => p.fw};
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    text-align: center;
+    color: rgba(27, 27, 27, 0.7);
+`;
+
 
 
 
@@ -26,13 +40,15 @@ class Splash extends Component {
   
     state = {
         active : 'off',
+        percentage : "0",
 
     }
 
     componentDidMount(){
-
-        const doConcierge = () => {
-            axios.get('http://localhost:3001/api/concierge/experts', {
+        this.doProgressBar();
+        if(!this.props.location.state) return false;
+        const doConcierge = _ => {
+            axios.get('http://192.168.1.119:3001/api/concierge/experts', {
                 headers:{
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Accept': 'application/json'},
@@ -63,8 +79,35 @@ class Splash extends Component {
         }
 
         doConcierge();
-      }
+        this.doProgressBar();
+     
+       
+    }
 
+    doProgressBar() {
+        console.log("1");
+        setTimeout(() => {
+            this.setState({ percentage : this.state.percentage*1+25});
+            setTimeout(() => {
+                this.setState({ percentage : this.state.percentage*1+25});
+                setTimeout(() => {
+                    this.setState({ percentage : this.state.percentage*1+25});
+                    setTimeout(() => {
+                        this.setState({ 
+                            percentage : this.state.percentage*1+25,
+                            active : 'on',
+                        });
+                        }, 2000);
+                    }, 2000);
+                }, 2000);
+            }, 2000);
+
+      
+            
+    
+   
+     
+    }
     render() {
        
         return (
@@ -74,7 +117,13 @@ class Splash extends Component {
                 <SmallTitle text="가장 적합한 전문가를 매칭해드립니다. 잠시만 기다려주세요."  />
                
                 <ContentBox>
-                   
+                <ProgressBar percentage={this.state.percentage} />
+                <div style={{marginTop: "40px"}}>
+                 <Researching fw="600">리서치 중...</Researching>
+                 <Researching fw="400"> (<CountUp end={16212} duration={8.5}  decimal="," separator=","/> / 16,212) </Researching>
+                
+                </div>
+                
                 </ContentBox>
                 <BttonBox>
                     <Button active={this.state.active}
@@ -82,7 +131,6 @@ class Splash extends Component {
                     onClick={ _ => {
                         if(this.state.active === 'on'){
                             let {history, location} = this.props
-        
                             history.push({
                             pathname:'/concierge/experts',
                             state: {

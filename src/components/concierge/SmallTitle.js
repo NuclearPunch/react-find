@@ -16,13 +16,19 @@ const Msg = styled.div`
   ${p => p.color  && `
     color: ${p.color}
   `}
+
+  ${p => p.type === "timetableDestop" && `
+  @media only screen and (max-width: 700px) {
+     font-size:11px;
+  } 
+  `}
 `;
 
 
 const SmallTitle = (props) => {
   return (
     <div>
-      <Msg  color={props.color}>{props.text}</Msg>
+      <Msg type={props.type} color={props.color}>{props.text}</Msg>
     </div>
   
   );

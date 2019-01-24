@@ -14,11 +14,22 @@ const Card = styled.div`
     padding: 5px 5px 0 5px;
     margin-left: 5px;
   `}
-  ${p => p.type === 'SL' && `
+  ${p => p.type === 'Styles_s' && `
     width: 156px;
-    height: 204px;
+    height: 140px;
     padding: 5px 5px 0 5px;
-    margin-left: 4px;
+    margin-left: 0.3em;
+    margin-right: 0.3em;
+    @media only screen (min-width: 321px) and (max-width: 414px) {
+      margin-left: 0.6em;
+      margin-right: 0.6em;
+    }
+    @media only screen and (max-width: 320px) {
+      margin-left: 0.2em;
+      margin-right: 0.2em;
+      width: 140.4px;
+      height: 126.36px;
+    }
   `}
  ${p => p.type === 'M' && `
       width: 232px;
@@ -38,6 +49,7 @@ const Card = styled.div`
     margin-left: 0;
   }
 
+
 `;
 const ImgCard = styled.img`
   background-color: #f9f9f9;
@@ -47,9 +59,13 @@ const ImgCard = styled.img`
        width: 144.8px;
        height: 144.8px;
   `}
-  ${p => p.type === 'SL' && `
+  ${p => p.type === 'Styles_s' && `
        width: 144.8px;
-       height: 144.8px;
+       height: 80px;
+       @media only screen and (max-width: 320px) {
+        width: 130.3px;
+        height: 72px;
+      }
   `}
 
   ${p => p.type === 'M' && `
@@ -81,10 +97,10 @@ const TitleBox = styled.div`
       width: 115px;
       height: 31px;
   `}
-  ${p => p.type === 'SL' && `
+  ${p => p.type === 'Styles_s' && `
       margin-top: 8px;
       font-size: 10px;
-      width: 115px;
+      width: 130px;
       height: 31px;
   `}
 
@@ -103,8 +119,8 @@ const Title = styled.div`
   ${p => p.type === 'S' && `
   font-size: 13px;
   `}
-  ${p => p.type === 'SL' && `
-  font-size: 13px;
+  ${p => p.type === 'Styles_s' && `
+  font-size: 15px;
   `}
   ${p => p.type === 'M' && `
     font-size: 22px;

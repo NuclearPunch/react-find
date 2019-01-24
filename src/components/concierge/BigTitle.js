@@ -18,9 +18,12 @@ const Title = styled.div`
       font-weight: 500;
       letter-spacing: 0.2px;
       color: rgba(27, 27, 27, 0.7);
-      padding-top: 7px;
       padding-top: 40px;
+      @media only screen and (max-width: 320px) {
+        padding-top: 80px; 
+      }
   `}
+  
 
   
 `;

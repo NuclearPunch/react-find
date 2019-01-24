@@ -24,7 +24,7 @@ const MoblileContentBox = styled.div`
 const Page = styled.div`
    display:flex;
    flex-direction:column;
-   justify-content : center;
+   justify-content : flex-start;
    align-item:center;
    height:${p => `
      ${p.height}px;

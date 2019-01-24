@@ -11,7 +11,6 @@ const ContentBox = styled.div`
   height: auto;
   margin: 0 auto;
   margin-top: 40px;
-
 `;
 
 const MoblileContentBox = styled.div`
@@ -19,28 +18,33 @@ const MoblileContentBox = styled.div`
     display:flex;
     flex-direction:row;
     justify-content : center;
+    @media only screen and (max-width: 320px) {
+      margin-top: 5px;
+    }
 `;
+
 const BttonBox = styled.div`
   width: 456px;
   height: 60px;
   margin: 0 auto;
-  margin-top: 130px;
+  margin-top: 8em;
+  margin-bottom: 8em;
+  padding-top: 1em;
   text-align: center;
   ${p => p.type === 'S' && `
      width: 260px;
      height: 40px;
      margin-top: 43px;
+     margin-bottom: 43px;
   `}
 `;
 
 const Page = styled.div`
    display:flex;
    flex-direction:column;
-   justify-content : center;
+   justify-content : flex-start;
    align-item:center;
-   height:${p => `
-     ${p.height}px;
-  `}
+   height : ${window.innerHeight}
 `;
 const MobilePage = styled.div`
    display:flex;
@@ -48,15 +52,23 @@ const MobilePage = styled.div`
    justify-content : flex-start;
    align-item:center;
    height:${p => `
-     ${p.height}px;
+     ${p.height}px
   `}
 `;
 const UnusefulCard = styled.div`
     width: 156px;
-    height: 204px;
-    margin-left: 19px;
+    height: 146px;
+    margin-left: 0.75em;
+    margin-right: 0.75em;
     @media only screen and (max-width: 320px) {
-      margin-left: 11px;
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+      width: 140.4px;
+      height: 126.36px;
+    }
+    @media only screen (min-width: 321px) and (max-width: 411px) {
+      margin-left: 1em;
+      margin-right: 1em;
     }
 `;
 
@@ -67,7 +79,8 @@ class Styles extends Component {
         active : 'off',
         cards : Util.style,
         style : [],
-        windowHeight : window.innerHeight
+       windowHeight : window.clientHeight > window.innerHeight ? window.clientHeight : window.innerHeight
+        //windowHeight : window.innerHeight
     }
     componentDidMount(){
     
@@ -149,7 +162,7 @@ class Styles extends Component {
                                {
                                  card2.map((card, index)=>
                                    <ConciergeCard 
-                                     type = 'SL'
+                                     type = 'Styles_s'
                                      key={index} 
                                      id={card.id}
                                      title={card.title}
@@ -163,7 +176,7 @@ class Styles extends Component {
                               </MoblileContentBox>)
                             : (<MoblileContentBox>
                                  <ConciergeCard 
-                                   type = 'SL'
+                                   type = 'Styles_s'
                                    id={card2[0].id}
                                    title={card2[0].title}
                                    img={card2[0].imgSrc}
@@ -216,9 +229,10 @@ class Styles extends Component {
                </BttonBox>
                    </div>
                 </MobilePage>)
-              :(<div>
+              :(<Page >
                 <BigTitle text="공간유형 선택" />
                 <MidTitle text="컨설팅할 공간을 선택해 주세요." />
+                <div>
                 <ContentBox>
                   { 
                     this.state.cards.map((card, index)=>
@@ -235,6 +249,8 @@ class Styles extends Component {
                     )
                   }
                 </ContentBox>
+                </div>
+                <div>
                 <BttonBox>
                     <Button onClick={ _ => {
                         let {history, location} = this.props
@@ -270,7 +286,8 @@ class Styles extends Component {
                     }
                     >다음으로 </Button>
                 </BttonBox>
-            </div>)
+                </div>
+            </Page>)
             }
           </Media>
         );

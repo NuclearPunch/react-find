@@ -77,10 +77,10 @@ const ConciergeRadio = (props) => {
           name={props.name}
           value={props.value}
           id={props.id}
-          defaultChecked={props.defaultChecked}
+          checked={props.checked}
           title={props.title}
           subTitle={props.subTitle}
-          onClick={props.onClick}
+          onChange={props.onChange}
         />
       {
        props.id === "auto" ? 
