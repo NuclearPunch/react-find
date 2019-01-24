@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { SmallTitle, MidTitle, Button } from 'components';
 import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Media from 'react-media';
-import * as RMButton from '@material-ui/core/Button';
+
 
 const ContentBox = styled.div`
   max-width: 952px;
@@ -15,7 +13,6 @@ const ContentBox = styled.div`
     margin-top: 10px;
   }
 `;
-
 
 const SubTitle = styled.div`
   text-align: center;
