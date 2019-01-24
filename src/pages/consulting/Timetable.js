@@ -123,7 +123,6 @@ class Timetable extends Component {
                   <SmallTitle type="timetableDestop" text="추천 전문가 상담이 마감되었거나, 추천 외 전문가와의 상담을 원하실 경우 사무국으로 문의해주시기 바랍니다." />
                   <SmallTitle type="timetableDestop" color="red" text="사무국: 02-6121-6439" />
                   <ContentBox>
-  
                      <Grid item xs={12}  zeroMinWidth={true}>
                         <TableHead>
                           <div style={{width:'163px', margin: '0 auto'}}>
