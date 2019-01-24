@@ -10,6 +10,10 @@ const ContentBox = styled.div`
   height: auto;
   margin: 0 auto;
   margin-top: 110px;
+  ${p => p.device ==='Mobile' && `
+    width : 320px;
+    margin-top: 3em;
+  `}
 `;
 
 const BttonBox = styled.div`
@@ -17,7 +21,35 @@ const BttonBox = styled.div`
   height: 60px;
   margin: 0 auto;
   margin-top: 130px;
+  text-align: center;
+  ${p => p.type === 'S' && `
+     width: 260px;
+     height: 40px;
+     margin-top: 43px;
+  `}
 `;
+
+const Page = styled.div`
+   display:flex;
+   flex-direction:column;
+   justify-content : flex-start;
+   align-item:center;
+   height:${p => `
+     ${p.height}px;
+  `}
+`;
+
+const MobilePage = styled.div`
+   display:flex;
+   flex-direction:column;
+   justify-content : space-around;
+   align-item:center;
+   height:${p => `
+     ${p.height}px;
+  `}
+`;
+
+
 
 class Priority extends Component {
   
@@ -76,9 +108,7 @@ class Priority extends Component {
          })
        
   
-      }
-      
-
+    }
           
     handleChange = (e) => {
       const radios = this.state.radios;
@@ -102,7 +132,7 @@ class Priority extends Component {
      
       });
 
-  }
+     }
 
 
     render() {
@@ -110,7 +140,77 @@ class Priority extends Component {
         return (
           <Media query="(max-width: 1146px)">
             { m => m ? (
-               <><p>less than 1146</p></>
+               <>
+                 <MobilePage>
+                    <div style={{marginTop:30}}>
+                      <MidTitle type="priority" text="입력하신 조건들 중에"  />
+                      <MidTitle type="priority" text="가장 우선순위로 생각하는 요소는 무엇인가요?"  />
+                      <SmallTitle type="priority" text="선택하신 기준을 중심으로" />
+                      <SmallTitle type="priority" text="가장 적합한 포트폴리오와 전문가를 추천해드립니다."   />
+                    </div>
+
+                    <div>  
+                    <ContentBox device="Mobile">
+                    { 
+                      this.state.radios.map((radio, index)=>
+                          <ConciergeRadio 
+                              device = "Mobile"
+                              key={index} 
+                              id={radio.id}
+                              name={radio.name}
+                              value={radio.value} 
+                              checked={radio.checked}
+                              active={radio.active}
+                              title={radio.title}
+                              subTitle={radio.subTitle}
+                              onChange={this.handleChange}
+                          />
+                      )
+                    }    
+                   </ContentBox> 
+                  </div>
+
+                  <div>
+                  <BttonBox type="S">
+                  <Button type="S" onClick={ _ => {
+                    let {history, location} = this.props
+                  
+                    history.push({
+                      pathname:'/concierge/styles',
+                      state: {
+                        formData : { 
+                            ...location.state.formData,
+                            sort : this.state.sort
+                        }
+                      }
+                      })
+                  }     
+                }>이전으로</Button>
+                <Button type="S" active={this.state.active}
+                  style={{position:'absolute'}} 
+                  onClick={ _ => {
+                    if(this.state.active === 'on'){
+                      let {history, location} = this.props
+      
+                    history.push({
+                      pathname:'/concierge/splash',
+                      state: {
+                        formData : { 
+                            ...location.state.formData,
+                            sort : this.state.sort
+                        }
+                      }
+                    })
+                    }
+                
+                  }     
+                }
+                >다음으로 </Button>
+                    
+                </BttonBox>
+                  </div>
+                 </MobilePage>
+               </>
              ) : (
               <div style={{paddingTop:'80px'}} >
               <MidTitle text="입력하신 조건들 중에"  />

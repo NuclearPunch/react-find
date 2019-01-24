@@ -38,6 +38,12 @@ const Msg = styled.div`
      padding-top: 1.1em;
   } 
   `}
+
+  ${p => p.type === "priority" && `
+     padding-bottom: 1px;
+     padding-top: 1px;
+     font-size:17px;
+  `}
   
    
  

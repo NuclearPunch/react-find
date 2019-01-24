@@ -9,6 +9,10 @@ const Cr = styled.div`
     border: 1px solid #ffd400;
     background-color: #ffffff;
   `}
+  ${p => p.device ==='Mobile' && `
+    width : 320px;
+    height 62px;
+  `}
 `;
 
 const CrInput = styled.input`
@@ -43,7 +47,15 @@ const TitleDiv =  styled.div`
   width: 105px;
    float: left;
    margin-top : 27px;
-`}
+  `}
+  ${p => p.device ==='Mobile' && `
+    font-size: 15px;
+  `}
+  ${p => p.device ==='Mobile' && p.id ==='auto' &&`
+    font-size: 15px;
+    margin-top : 5px;
+  `}
+  
 `;
 const ContentDiv =  styled.div`
  
@@ -53,6 +65,12 @@ const ContentDiv =  styled.div`
   font-weight: 500;
   color: rgba(27, 27, 27, 0.7);
   word-spacing: -2px;
+  ${p => p.device ==='Mobile' && `
+    font-size: 10px;
+    margin-top : 0px;
+    width: 245px;
+    float: right;
+  `}
 `;
 
 const ContentDiv2 =  styled.div`
@@ -67,11 +85,15 @@ const ContentDiv2 =  styled.div`
   float: left;
   margin-top: 31px;
   margin-left: 20px;
+  ${p => p.device ==='Mobile' && `
+    font-size: 10px;
+    word-wrap:break-word; 
+  `}
 `;
 
 const ConciergeRadio = (props) => {
   return (
-    <Cr active={props.active}>
+    <Cr active={props.active} device={props.device}>
       <CrInput
           type="radio"
           name={props.name}
@@ -84,16 +106,16 @@ const ConciergeRadio = (props) => {
         />
       {
        props.id === "auto" ? 
-        <CrLabel htmlFor={props.id}>
-          <TitleDiv  id={props.id}>{props.title}</TitleDiv>
-          <ContentDiv>{props.subTitle}</ContentDiv>
+        <CrLabel htmlFor={props.id} device={props.device}>
+          <TitleDiv device={props.device} id={props.id}>{props.title}</TitleDiv>
+          <ContentDiv device={props.device} >{props.subTitle}</ContentDiv>
         </CrLabel>
         :
-        <CrLabel htmlFor={props.id}> <TitleDiv>{props.title}</TitleDiv> <ContentDiv2>{props.subTitle}</ContentDiv2></CrLabel>
+        <CrLabel htmlFor={props.id} device={props.device}> 
+          <TitleDiv device={props.device}>{props.title}</TitleDiv>
+         <ContentDiv2 device={props.device}>{props.subTitle}</ContentDiv2>
+        </CrLabel>
       }
-      
-       
-    
   </Cr>
   )
 };

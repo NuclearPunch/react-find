@@ -16,13 +16,6 @@ const ContentBox = styled.div`
   }
 `;
 
-// const BttonBox = styled.div`
-//   width: 456px;
-//   height: 60px;
-//   margin: 0 auto;
-//   margin-top: 130px;
-// `;
-
 const SubTitle = styled.p`
   text-align: center;
   margin : 0px 0 0 0;
@@ -76,7 +69,7 @@ class ColumnGrid extends React.Component{
           <SubTitle> {'11:00 - 11:50'}</SubTitle> 
         </Grid>
         <Grid item xs={2}>
-          <SubTitle> 11:00 - 11:50 </SubTitle> 
+          <SubTitle> abc </SubTitle> 
         </Grid>
         <Grid item xs={2} zeroMinWidth>
           <SubTitle> 11:00 - 11:50 </SubTitle>
@@ -110,7 +103,6 @@ class Timetable extends Component {
     
         return (
       
-             
                 <div>
                   <MidTitle type="timetableDestop" text="컨설팅 신청" />
                   <SmallTitle type="timetableDestop" text="인테리어 컨설팅 신청은 최대 5회까지 가능합니다." />
