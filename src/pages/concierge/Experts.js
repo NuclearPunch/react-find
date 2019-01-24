@@ -29,6 +29,7 @@ class Experts extends Component {
       }
 
       componentDidMount(){
+      
         if(!this.props.location.state) return false;
         if(!this.props.location.state.experts) return false;
         const experts = this.props.location.state.experts;
@@ -110,7 +111,7 @@ class Experts extends Component {
                         state: {
                             formData : { 
                                 ...location.state.formData,
-                                
+                                experts : this.state.selExperts,
                             }
                         }
                         })
@@ -119,17 +120,21 @@ class Experts extends Component {
                     <Button active={this.state.active}
                     style={{position:'absolute'}}
                     onClick={ _ => {
+                      if(this.state.active === 'on'){
                         let {history, location} = this.props
         
                         history.push({
-                        pathname:'/concierge/experts',
+                        pathname:'/consulting/timetable',
                         state: {
                             formData : { 
                                 ...location.state.formData,
-                                
+                                experts : this.state.selExperts,
+                              
                             }
                         }
                         })
+                      }
+              
                     }     
                     }
                     >다음으로 </Button>  
