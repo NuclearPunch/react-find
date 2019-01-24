@@ -25,6 +25,7 @@ class Experts extends Component {
     state = {
         active : 'off',
         experts : [],
+        selExperts: [],
       }
 
       componentDidMount(){
@@ -45,6 +46,7 @@ class Experts extends Component {
 
         this.setState({
             active : 'on',
+            selExs : selExs,
             experts: experts.map( 
                 e => {
                   if(e.userId === expert.userId && e.portfolioId === expert.portfolioId){
@@ -55,11 +57,8 @@ class Experts extends Component {
                     e.selected = !expert.selected;
                     return e;
                   }
-                  
                   return e;
               }),
-    
-         
         });
       }
 
