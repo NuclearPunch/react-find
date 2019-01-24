@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Util from  './../../lib/Util';
 
 const Card = styled.div`
   background-color: #ffffff;
@@ -65,6 +66,7 @@ const LogoBox = styled.div`
   float: left;
   ${p => p.logo && `
     background-color: #000000;
+    background: url(https://interiorbrothers.com${p.logo}) center center / cover no-repeat;
   `}
   
 `;
@@ -158,8 +160,11 @@ const CbTime = styled.div`
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.4px;
-  color: rgba(254, 24, 24, 0.7);
+  color: rgba(27, 27, 27, 0.7);
   text-align: left;
+  ${p => p.color && `
+  color: rgba(254, 24, 24, 0.7);
+`}
 `;
 
 
@@ -189,11 +194,11 @@ const ExpertCard = ({selected, ...p}) => {
             <CbContent>{p.mainSpecialty }</CbContent>
           </CbBox>
           <CbTimeBox>
-           <CbTime>20일(수) 상담가능</CbTime>
-           <CbTime>20일(수) 상담가능</CbTime>
-           <CbTime>20일(수) 상담가능</CbTime>
-           <CbTime>20일(수) 상담가능</CbTime>
-           <CbTime>20일(수) 상담가능</CbTime>
+            {
+               p.timetable.map( (t, i) => 
+                  <CbTime key={i} color={t.get(i+1).length > 6 ?  'red': ''} >{ t.get(i+1).length > 6 ?  `${Util.dayCode[i+1].date}일(${Util.dayCode[i+1].name}) 상담불가` :  `${Util.dayCode[i+1].date}일(${Util.dayCode[i+1].name}) 상담가능` }</CbTime>   
+              )
+            }
           </CbTimeBox>
         </ContentBody>
         
